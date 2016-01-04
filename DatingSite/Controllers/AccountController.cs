@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using DataAccessLayer;
 using System.Web.Routing;
+using DatingSite.Models;
 
 namespace DatingSite.Controllers
 {
@@ -28,5 +29,32 @@ namespace DatingSite.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(AccountModel account)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var userRepository = new UserRepository();
+
+                    userRepository.Add(account.Username, account.Password);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.ToString());
+                Console.ReadLine();
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
