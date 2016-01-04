@@ -29,11 +29,11 @@ namespace DataAccessLayer
         public string Email { get; set; }
         public string Password { get; set; }
         public string Username { get; set; }
-        public bool Gender { get; set; }
-        public System.DateTime Birthdate { get; set; }
+        public Nullable<bool> Gender { get; set; }
+        public Nullable<System.DateTime> Birthdate { get; set; }
         public Nullable<int> City { get; set; }
-        public int Length { get; set; }
-        public int Weight { get; set; }
+        public Nullable<int> Length { get; set; }
+        public Nullable<int> Weight { get; set; }
         public string Build { get; set; }
         public string Eyecolor { get; set; }
         public string Haircolor { get; set; }

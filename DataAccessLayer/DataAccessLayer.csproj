@@ -54,6 +54,7 @@
     <Compile Include="City.cs">
       <DependentUpon>OnlineDatingDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CityRepository.cs" />
     <Compile Include="FriendRequest.cs">
       <DependentUpon>OnlineDatingDBModel.tt</DependentUpon>
     </Compile>
@@ -82,6 +83,7 @@
     <Compile Include="UserAccount.cs">
       <DependentUpon>OnlineDatingDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="OnlineDatingDBModel.edmx">

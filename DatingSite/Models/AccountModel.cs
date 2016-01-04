@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using DataAccessLayer;
 
 namespace DatingSite.Models
 {
     public class AccountModel
     {
+        private CityRepository cities = new CityRepository();
+
         [Required(ErrorMessage = "Please choose a username.")]
         [StringLength(20, ErrorMessage = "Username needs to be between {0} and {2} characters long", MinimumLength = 6)]
         [Display(Name = "Username")]
@@ -35,5 +38,9 @@ namespace DatingSite.Models
         public DateTime Birthdate { get; set; }
 
         public bool Gender { get; set; }
+
+        [Display(Name = "City")]
+        public City City { get; set; }
+
     }
 }
