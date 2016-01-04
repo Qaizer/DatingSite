@@ -62,7 +62,7 @@
           <Property Name="Education" Type="nvarchar" MaxLength="50" />
           <Property Name="Branch" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK__FriendReq__Recie__534D60F1">
+        <Association Name="FK__FriendReq__Recie__2B3F6F97">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -74,7 +74,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FriendReq__Sende__52593CB8">
+        <Association Name="FK__FriendReq__Sende__2A4B4B5E">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -86,7 +86,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Friendshi__Frien__4BAC3F29">
+        <Association Name="FK__Friendshi__Frien__239E4DCF">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="Friendship" Type="Self.Friendship" Multiplicity="*" />
           <ReferentialConstraint>
@@ -98,7 +98,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Friendship__User__4AB81AF0">
+        <Association Name="FK__Friendship__User__22AA2996">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="Friendship" Type="Self.Friendship" Multiplicity="*" />
           <ReferentialConstraint>
@@ -110,7 +110,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Recieve__4F7CD00D">
+        <Association Name="FK__Message__Recieve__276EDEB3">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -122,7 +122,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__Sender__4E88ABD4">
+        <Association Name="FK__Message__Sender__267ABA7A">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -134,7 +134,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserAccoun__City__173876EA">
+        <Association Name="FK__UserAccoun__City__15502E78">
           <End Role="City" Type="Self.City" Multiplicity="0..1" />
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
           <ReferentialConstraint>
@@ -152,31 +152,31 @@
           <EntitySet Name="Friendship" EntityType="Self.Friendship" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__FriendReq__Recie__534D60F1" Association="Self.FK__FriendReq__Recie__534D60F1">
+          <AssociationSet Name="FK__FriendReq__Recie__2B3F6F97" Association="Self.FK__FriendReq__Recie__2B3F6F97">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="FriendRequest" EntitySet="FriendRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__FriendReq__Sende__52593CB8" Association="Self.FK__FriendReq__Sende__52593CB8">
+          <AssociationSet Name="FK__FriendReq__Sende__2A4B4B5E" Association="Self.FK__FriendReq__Sende__2A4B4B5E">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="FriendRequest" EntitySet="FriendRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__Friendshi__Frien__4BAC3F29" Association="Self.FK__Friendshi__Frien__4BAC3F29">
+          <AssociationSet Name="FK__Friendshi__Frien__239E4DCF" Association="Self.FK__Friendshi__Frien__239E4DCF">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Friendship" EntitySet="Friendship" />
           </AssociationSet>
-          <AssociationSet Name="FK__Friendship__User__4AB81AF0" Association="Self.FK__Friendship__User__4AB81AF0">
+          <AssociationSet Name="FK__Friendship__User__22AA2996" Association="Self.FK__Friendship__User__22AA2996">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Friendship" EntitySet="Friendship" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Recieve__4F7CD00D" Association="Self.FK__Message__Recieve__4F7CD00D">
+          <AssociationSet Name="FK__Message__Recieve__276EDEB3" Association="Self.FK__Message__Recieve__276EDEB3">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__Sender__4E88ABD4" Association="Self.FK__Message__Sender__4E88ABD4">
+          <AssociationSet Name="FK__Message__Sender__267ABA7A" Association="Self.FK__Message__Sender__267ABA7A">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserAccoun__City__173876EA" Association="Self.FK__UserAccoun__City__173876EA">
+          <AssociationSet Name="FK__UserAccoun__City__15502E78" Association="Self.FK__UserAccoun__City__15502E78">
             <End Role="City" EntitySet="City" />
             <End Role="UserAccount" EntitySet="UserAccount" />
           </AssociationSet>

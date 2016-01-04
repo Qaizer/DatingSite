@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Profile_Pictures\" />
     <Folder Include="Views\Authorize\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>
