@@ -5,7 +5,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@if (User.Identity.Name = Model.Username)
+@if (User.Identity.Name == Model.Username)
 {
     <h2>@User.Identity.Name</h2>
 

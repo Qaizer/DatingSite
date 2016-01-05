@@ -11,7 +11,7 @@ namespace DataAccessLayer
         #region Exist checks
         public bool UserExists(string username, string password)
         {
-            using(var context = new OnlineDatingDBEntities())
+            using (var context = new OnlineDatingDBEntities())
             {
                 return context.UserAccount.Any(x => x.Username == username && x.Password == password);
             }
@@ -38,21 +38,14 @@ namespace DataAccessLayer
         {
             using (var context = new OnlineDatingDBEntities())
             {
-                try
+                var newUser = new UserAccount
                 {
-                    var newUser = new UserAccount
-                    {
-                        Username = username,
-                        Password = password,
-                        Email = email
-                    };
-                    context.UserAccount.Add(newUser);
-                    context.SaveChanges();
-                }
-                catch(Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                    Username = username,
+                    Password = password,
+                    Email = email
+                };
+                context.UserAccount.Add(newUser);
+                context.SaveChanges();
             }
         }
     }
