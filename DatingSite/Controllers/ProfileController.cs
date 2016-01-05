@@ -53,12 +53,12 @@ namespace DatingSite.Controllers
                 //error message
             }
         }
-
-        public void UpdatePassword(string username, string oldPassword, string newPassword)
+        [HttpPost]
+        public void UpdatePassword(string name, string oldPassword, string newPassword)
         {
             var userRepository = new UserRepository();
 
-            userRepository.ChangePassword(username, oldPassword, newPassword);
+            userRepository.ChangePassword(name, oldPassword, newPassword);
         }
 
     }

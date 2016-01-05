@@ -12,20 +12,7 @@
     <div id="ProfilePictureIndex"><img src="" style="width: 200px; height: 250px;"/>
     </div>
     <p>Some profile information and other assorted stuff.</p>
-    
-    using (Html.BeginForm("UpdateEmail", "Profile"))
-    {
-        <input type="email" name="new email" placeholder="New Email" value="@Model.Email"/>
-        @Html.Hidden("returnUserIdentity", User.Identity.Name)
-        <input type="submit" value="UpdateEmail" />
-    }
-    using (Html.BeginForm("UpdatePassword", "Profile"))
-    {
-        <input type="password" name="old password" placeholder="Old Password" />
-        <input type="password" name="new password" placeholder="New Password"/>
-        @Html.Hidden("returnUserIdentity", User.Identity.Name)
-        <input type="submit" value="UpdatePassword" />
-    }
+<div class="partialView"> @Html.Partial("_EditProfile")</div>
 }
 else
 {
