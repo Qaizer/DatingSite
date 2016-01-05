@@ -10,5 +10,6 @@ namespace DatingSite.Models
     {
         public string Username { get; set; } 
         public string ImageUrl { get; set; }
+        public string Email { get; set; }
     }
 }

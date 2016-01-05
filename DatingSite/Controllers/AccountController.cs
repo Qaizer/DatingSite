@@ -44,7 +44,7 @@ namespace DatingSite.Controllers
                 {
                     var userRepository = new UserRepository();
 
-                    userRepository.Add(account.Username, account.Password);
+                    userRepository.Add(account.Username, account.Password, account.Email);
                 }
             }
             catch (Exception e)
