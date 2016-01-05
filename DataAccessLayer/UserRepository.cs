@@ -16,7 +16,16 @@ namespace DataAccessLayer
             }
         }
 
-        public void Add(string username, string password)
+        public bool EmailExists(string email)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                return context.UserAccount.Any(x => x.Email == email);
+            }
+        }
+
+
+        public void Add(string username, string password, string email)
         {
             using (var context = new OnlineDatingDBEntities())
             {
@@ -25,7 +34,8 @@ namespace DataAccessLayer
                     var newUser = new UserAccount
                     {
                         Username = username,
-                        Password = password
+                        Password = password,
+                        Email = email
                     };
                     context.UserAccount.Add(newUser);
                     context.SaveChanges();

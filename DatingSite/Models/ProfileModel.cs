@@ -8,6 +8,7 @@ namespace DatingSite.Models
 {
     public class ProfileModel
     {
-        public string Username { get; set; } 
+        public string Username { get; set; }
+        public string Email { get; set; }
     }
 }

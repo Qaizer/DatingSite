@@ -24,5 +24,12 @@ namespace DatingSite.Models
         [Compare("Password")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Please enter a valid email adress.")]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        [StringLength(30, ErrorMessage = "Email cannot be shorter than {0} or longer than {2}", MinimumLength = 6)]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string Email { get; set; }
     }
 }
