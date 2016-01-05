@@ -8,11 +8,20 @@ namespace DataAccessLayer
 {
     public class UserRepository
     {
-        public bool Exists(string username, string password)
+        #region Exist checks
+        public bool UserExists(string username, string password)
         {
             using(var context = new OnlineDatingDBEntities())
             {
                 return context.UserAccount.Any(x => x.Username == username && x.Password == password);
+            }
+        }
+        
+        public bool UsernameExists(string username)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                return context.UserAccount.Any(x => x.Username == username);
             }
         }
 
@@ -23,7 +32,7 @@ namespace DataAccessLayer
                 return context.UserAccount.Any(x => x.Email == email);
             }
         }
-
+        #endregion
 
         public void Add(string username, string password, string email)
         {

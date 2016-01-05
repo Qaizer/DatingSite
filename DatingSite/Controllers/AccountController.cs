@@ -15,7 +15,7 @@ namespace DatingSite.Controllers
         public ActionResult Login(string username, string password)
         {
             var userRepository = new UserRepository();
-            if (userRepository.Exists(username, password))
+            if (userRepository.UserExists(username, password))
             {
                 FormsAuthentication.SetAuthCookie(username, false);
                 return RedirectToAction("Index", "Profile", new RouteValueDictionary(new { username }));
@@ -39,18 +39,20 @@ namespace DatingSite.Controllers
         public ActionResult Register(AccountModel account)
         {
             var userRepository = new UserRepository();
-
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                if(userRepository.UsernameExists(account.Username))
                 {
-                    userRepository.Add(account.Username, account.Password, account.Email);
-                return RedirectToAction("Index", "Profile");
-                /*if (userRepository.EmailExists(account.Email))
-                {
+                    return View(); //Ska visa ett error vid fältet
+                }
+                else if(userRepository.EmailExists(account.Email)){
+                    return View(); //Ska visa ett error vid fältet
                 }
                 else
                 {
+                    userRepository.Add(account.Username, account.Password, account.Email);
+                    return RedirectToAction("Index", "Profile");
                 }
-                */
             }
             else
             {
