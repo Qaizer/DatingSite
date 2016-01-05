@@ -13,7 +13,31 @@ namespace DatingSite.Controllers
         // GET: Profile
         public ActionResult Index(string username)
         {
-            return View(new ProfileModel { Username = username });
+            if (username != null)
+            {
+                var userRepository = new UserRepository();
+                var user = userRepository.getUser(username);
+                return View(
+                    new ProfileModel
+                    {
+                        Username = user.Username,
+                        Password = user.Password,
+                        ImageUrl = user.ImageUrl,
+                        Email = user.Email,
+                        Build = user.Build,
+                        Eyecolor = user.Eyecolor,
+                        Haircolor = user.Haircolor,
+                        Origin = user.Origin,
+                        CivilStatus = user.Civil_Status,
+                        Occupation = user.Occupation,
+                        Education = user.Education,
+                        Branch = user.Branch
+                    });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }      
         }
 
         public void UpdateEmail(string username, string email)

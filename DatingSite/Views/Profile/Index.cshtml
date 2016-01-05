@@ -13,42 +13,42 @@
     </div>
     <p>Some profile information and other assorted stuff.</p>
     
-using (Html.BeginForm("UpdateEmail", "Profile"))
-{
-    <input type="email" name="new email" placeholder="New Email"/>
-    @Html.Hidden("returnUserIdentity", User.Identity.Name)
-    <input type="submit" value="UpdateEmail" />
-}
-using (Html.BeginForm("UpdatePassword", "Profile"))
- {
-    <input type="password" name="old password" placeholder="Old Password" />
-    <input type="password" name="new password" placeholder="New Password"/>
-    @Html.Hidden("returnUserIdentity", User.Identity.Name)
-    <input type="submit" value="UpdatePassword" />
- }
-
+    using (Html.BeginForm("UpdateEmail", "Profile"))
+    {
+        <input type="email" name="new email" placeholder="New Email" value="@Model.Email"/>
+        @Html.Hidden("returnUserIdentity", User.Identity.Name)
+        <input type="submit" value="UpdateEmail" />
+    }
+    using (Html.BeginForm("UpdatePassword", "Profile"))
+    {
+        <input type="password" name="old password" placeholder="Old Password" />
+        <input type="password" name="new password" placeholder="New Password"/>
+        @Html.Hidden("returnUserIdentity", User.Identity.Name)
+        <input type="submit" value="UpdatePassword" />
+    }
 }
 else
 {
     <h2>@Model.Username 's Profile</h2>
+    <div id="ProfilePictureIndex"><img src="" style="width: 200px; height: 250px;"/>
+    </div>
+
+    <div class="profile-info-section">
+        <h3>Personal information</h3>
+        <p>Education: @Model.Education</p>
+        <p>Occupation: @Model.Occupation</p>
+        <p>Branch: @Model.Branch</p>
+        <p>Civil status: @Model.CivilStatus</p>
+    </div>
+
+    <div class="profile-info-section">
+        <h3>Appearance</h3>
+        <p>Gender: Not implemented</p>
+        <p>Length: @Model.Length</p>
+        <p>Weight: @Model.Weight</p>
+        <p>Eyecolor: @Model.Eyecolor</p>
+        <p>Haircolor: @Model.Haircolor</p>
+        <p>Origin: @Model.Origin</p>
+    </div>
 }
 
-{SELECT [Extent1].[UserAccountID] AS [UserAccountID],
-[Extent1].[Email] AS [Email],
-[Extent1].[Password] AS [Password],
-[Extent1].[Username] AS [Username],
-[Extent1].[Gender] AS [Gender],
-[Extent1].[Birthdate] AS [Birthdate],
-[Extent1].[City] AS [City],
-[Extent1].[Length] AS [Length],
-[Extent1].[Weight] AS [Weight],
-[Extent1].[Build] AS [Build],
-[Extent1].[Eyecolor] AS [Eyecolor],
-[Extent1].[Haircolor] AS [Haircolor],
-[Extent1].[Origin] AS [Origin],
-[Extent1].[Civil Status] AS [Civil Status],
-[Extent1].[Occupation] AS [Occupation],
-[Extent1].[Education] AS [Education],
-[Extent1].[Branch] AS [Branch],
-[Extent1].[ImageUrl] AS [ImageUrl] 
-FROM [dbo].[UserAccount] AS [Extent1]}

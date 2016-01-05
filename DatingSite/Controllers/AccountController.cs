@@ -51,7 +51,7 @@ namespace DatingSite.Controllers
                 else
                 {
                     userRepository.Add(account.Username, account.Password, account.Email);
-                    return RedirectToAction("Index", "Profile");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else

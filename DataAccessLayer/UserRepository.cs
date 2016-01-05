@@ -37,6 +37,7 @@ namespace DataAccessLayer
         }
         #endregion
 
+        #region Data manipulation
         public void Add(string username, string password, string email)
         {
             using (var context = new OnlineDatingDBEntities())
@@ -52,14 +53,11 @@ namespace DataAccessLayer
             }
         }
 
-        #region UpdateUser
-
         public void ChangePassword(string username, string oldPassword, string newPassword)
         {
             using (var context = new OnlineDatingDBEntities())
             {
-                UserAccount userToEdit;
-                userToEdit = context.UserAccount.FirstOrDefault(x => x.Username == username && x.Password == oldPassword);
+                var userToEdit = context.UserAccount.FirstOrDefault(x => x.Username == username && x.Password == oldPassword);
                 userToEdit.Password = newPassword;
                 context.SaveChanges();
             }
@@ -86,6 +84,17 @@ namespace DataAccessLayer
                 contextModified.SaveChanges();
             }
         }
+        #endregion
+
+        #region getData
+        public UserAccount getUser(string username)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                return context.UserAccount.First(x => x.Username == username);
+            }
+        } 
+
         #endregion
     }
 }
