@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,5 +58,41 @@ namespace DataAccessLayer
                 }
             }
         }
+
+        #region UpdateUser
+
+        public void ChangePassword(string username, string oldPassword, string newPassword)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                UserAccount userToEdit;
+                userToEdit = context.UserAccount.FirstOrDefault(x => x.Username == username && x.Password == oldPassword);
+                userToEdit.Password = newPassword;
+                context.SaveChanges();
+            }
+        }
+
+        public void ChangeEmail(string user, string newEmail)
+        {
+            UserAccount userToEdit;
+            using (var context = new OnlineDatingDBEntities())
+            {
+                userToEdit = (from u in context.UserAccount
+                              where u.Username == user
+                              select u).First();
+            }
+
+            if (userToEdit != null)
+            {
+                userToEdit.Email = newEmail;
+            }
+
+            using (var contextModified = new OnlineDatingDBEntities())
+            {
+                contextModified.Entry(userToEdit).State = EntityState.Modified;
+                contextModified.SaveChanges();
+            }
+        }
+        #endregion
     }
 }
