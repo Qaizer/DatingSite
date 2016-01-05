@@ -38,14 +38,25 @@ namespace DatingSite.Controllers
         [HttpPost]
         public ActionResult Register(AccountModel account)
         {
-            if (ModelState.IsValid)
-            {
-                var userRepository = new UserRepository();
+            var userRepository = new UserRepository();
 
-                userRepository.Add(account.Username, account.Password, account.Email);
+                if (ModelState.IsValid)
+                {
+                    userRepository.Add(account.Username, account.Password, account.Email);
+                return RedirectToAction("Index", "Profile");
+                /*if (userRepository.EmailExists(account.Email))
+                {
+                }
+                else
+                {
+                }
+                */
             }
-        return RedirectToAction("Index", "Home");
+            else
+            {
+                System.Console.WriteLine("Register modelstate is not valid.");
+                return View();
+            }
         }
-
     }
 }
