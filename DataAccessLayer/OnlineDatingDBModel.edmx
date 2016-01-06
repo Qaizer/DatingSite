@@ -37,8 +37,8 @@
           <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Sender" Type="int" Nullable="false" />
           <Property Name="Reciever" Type="int" Nullable="false" />
-          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityType Name="UserAccount">
           <Key>
@@ -223,8 +223,8 @@
           <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Sender" Type="Int32" Nullable="false" />
           <Property Name="Reciever" Type="Int32" Nullable="false" />
-          <Property Name="Message1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Message1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserAccount" Relationship="Self.FK__Message__Recieve__29572725" FromRole="Message" ToRole="UserAccount" />
           <NavigationProperty Name="UserAccount1" Relationship="Self.FK__Message__Sender__286302EC" FromRole="Message" ToRole="UserAccount" />
         </EntityType>

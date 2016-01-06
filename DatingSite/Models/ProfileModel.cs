@@ -28,7 +28,7 @@ namespace DatingSite.Models
         public string Email { get; set; }
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; } 
-        public string City { get; set;}
+        public City City { get; set;}
         public int Length { get; set; }
         public int Weight { get; set; }
         public string Build { get; set; }
