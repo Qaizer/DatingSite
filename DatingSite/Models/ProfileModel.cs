@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 using DataAccessLayer;
 
 namespace DatingSite.Models
@@ -11,7 +11,20 @@ namespace DatingSite.Models
     {
         public string Username { get; set; } 
         public string ImageUrl { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Old Password")]
         public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "New Password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Compare("NewPassword")]
+        [Display(Name = "Confirm Password")]
+        public string ConfirmPassword { get; set; }
+
         public string Email { get; set; }
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; } 

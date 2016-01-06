@@ -6,7 +6,6 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace DataAccessLayer
 {
     public class UserRepository
@@ -53,41 +52,21 @@ namespace DataAccessLayer
             }
         }
 
-        public void ChangePassword(string username, string oldPassword, string newPassword)
+        public void UpdateUser(string username, string emailToUpdate)
         {
+
             using (var context = new OnlineDatingDBEntities())
             {
-                var userToEdit = context.UserAccount.FirstOrDefault(x => x.Username == username && x.Password == oldPassword);
-                userToEdit.Password = newPassword;
+                var userToUpdate = GetUser(username);
+                userToUpdate.Email = emailToUpdate;
+
                 context.SaveChanges();
-            }
-        }
-
-        public void ChangeEmail(string user, string newEmail)
-        {
-            UserAccount userToEdit;
-            using (var context = new OnlineDatingDBEntities())
-            {
-                userToEdit = (from u in context.UserAccount
-                              where u.Username == user
-                              select u).First();
-            }
-
-            if (userToEdit != null)
-            {
-                userToEdit.Email = newEmail;
-            }
-
-            using (var contextModified = new OnlineDatingDBEntities())
-            {
-                contextModified.Entry(userToEdit).State = EntityState.Modified;
-                contextModified.SaveChanges();
             }
         }
         #endregion
 
         #region getData
-        public UserAccount getUser(string username)
+        public UserAccount GetUser(string username)
         {
             using (var context = new OnlineDatingDBEntities())
             {

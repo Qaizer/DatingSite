@@ -16,9 +16,8 @@ namespace DatingSite.Controllers
             if (username != null)
             {
                 var userRepository = new UserRepository();
-                var user = userRepository.getUser(username);
-                return View(
-                    new ProfileModel
+                var user = userRepository.GetUser(username);
+                   return View( new ProfileModel
                     {
                         Username = user.Username,
                         Password = user.Password,
@@ -40,25 +39,18 @@ namespace DatingSite.Controllers
             }      
         }
 
-        public void UpdateEmail(string username, string email)
-        {
-            var userRepository = new UserRepository();
-
-            if (!userRepository.EmailExists(email))
-            {
-                userRepository.ChangeEmail(username, email);
-            }
-            else
-            {
-                //error message
-            }
-        }
         [HttpPost]
-        public void UpdatePassword(string name, string oldPassword, string newPassword)
+        public void UpdateUser(ProfileModel profileToUpdate)
         {
             var userRepository = new UserRepository();
+            {
+                userRepository.UpdateUser(
+                    profileToUpdate.Username,
+                    profileToUpdate.Email
+                    );
+                //City = profileToUpdate.City om tid finns.
+            };
 
-            userRepository.ChangePassword(name, oldPassword, newPassword);
         }
 
     }
