@@ -64,6 +64,7 @@
     <Compile Include="Message.cs">
       <DependentUpon>OnlineDatingDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MessageRepository.cs" />
     <Compile Include="OnlineDatingDBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
