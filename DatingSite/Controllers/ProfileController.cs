@@ -10,13 +10,19 @@ namespace DatingSite.Controllers
 {
     public class ProfileController : AuthorizeController
     {
+        UserRepository _userRepository;
+
+        public ProfileController()
+        {
+            _userRepository = new UserRepository();
+        }
+
         // GET: Profile
         public ActionResult Index(string username)
         {
             if (username != null)
             {
-                var userRepository = new UserRepository();
-                var user = userRepository.GetUser(username);
+                var user = _userRepository.GetUser(username);
                    return View( new ProfileModel
                     {
                         Username = user.Username,
@@ -42,12 +48,11 @@ namespace DatingSite.Controllers
         [HttpPost]
         public ActionResult UpdateUser(ProfileModel profileToUpdate)
         {
-            var userRepository = new UserRepository();
             if (ModelState.IsValid)
             {
                 try
                 {
-                    userRepository.UpdateUser(
+                    _userRepository.UpdateUser(
                             User.Identity.Name,
                             profileToUpdate.Email
                             );

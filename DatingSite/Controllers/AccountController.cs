@@ -12,10 +12,16 @@ namespace DatingSite.Controllers
 {
     public class AccountController : Controller
     {
+        UserRepository _userRepository;
+
+        public AccountController()
+        {
+            _userRepository = new UserRepository();
+        }
+
         public ActionResult Login(string username, string password)
         {
-            var userRepository = new UserRepository();
-            if (userRepository.UserExists(username, password))
+            if (_userRepository.UserExists(username, password))
             {
                 FormsAuthentication.SetAuthCookie(username, false);
                 return RedirectToAction("Index", "Profile", new RouteValueDictionary(new { username }));
@@ -38,19 +44,18 @@ namespace DatingSite.Controllers
         [HttpPost]
         public ActionResult Register(AccountModel account)
         {
-            var userRepository = new UserRepository();
             if (ModelState.IsValid)
             {
-                if(userRepository.UsernameExists(account.Username))
+                if(_userRepository.UsernameExists(account.Username))
                 {
                     return View(); //Ska visa ett error vid fältet
                 }
-                else if(userRepository.EmailExists(account.Email)){
+                else if(_userRepository.EmailExists(account.Email)){
                     return View(); //Ska visa ett error vid fältet
                 }
                 else
                 {
-                    userRepository.Add(account.Username, account.Password, account.Email);
+                    _userRepository.Add(account.Username, account.Password, account.Email);
                     return RedirectToAction("Index", "Home");
                 }
             }
