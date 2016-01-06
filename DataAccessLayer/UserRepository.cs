@@ -52,13 +52,13 @@ namespace DataAccessLayer
             }
         }
 
-        public void UpdateUser(string username, string emailToUpdate)
+        public void UpdateUser(string username, string newEmail)
         {
-
             using (var context = new OnlineDatingDBEntities())
             {
-                var userToUpdate = GetUser(username);
-                userToUpdate.Email = emailToUpdate;
+                var userToUpdate = context.UserAccount.First(x => x.Username == username);
+
+                userToUpdate.Email = newEmail;
 
                 context.SaveChanges();
             }

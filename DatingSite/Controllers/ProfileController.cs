@@ -40,17 +40,26 @@ namespace DatingSite.Controllers
         }
 
         [HttpPost]
-        public void UpdateUser(ProfileModel profileToUpdate)
+        public ActionResult UpdateUser(ProfileModel profileToUpdate)
         {
             var userRepository = new UserRepository();
+            if (ModelState.IsValid)
             {
-                userRepository.UpdateUser(
-                    profileToUpdate.Username,
-                    profileToUpdate.Email
-                    );
-                //City = profileToUpdate.City om tid finns.
-            };
-
+                try
+                {
+                    userRepository.UpdateUser(
+                            User.Identity.Name,
+                            profileToUpdate.Email
+                            );
+                        //City = profileToUpdate.City om tid finns.
+                    }
+                catch (Exception e)
+                {
+                    return View("_EditProfile");
+                }
+                return RedirectToAction("Index", "Profile");
+            }
+            return RedirectToAction("Index", "Profile");
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿@model DatingSite.Models.ProfileModel
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("UpdateUser", "Profile"))
 {
     @Html.AntiForgeryToken()
     
