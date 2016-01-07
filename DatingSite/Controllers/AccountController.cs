@@ -12,7 +12,7 @@ namespace DatingSite.Controllers
 {
     public class AccountController : Controller
     {
-        UserRepository _userRepository;
+        readonly UserRepository _userRepository;
 
         public AccountController()
         {

@@ -1,0 +1,19 @@
+﻿@using DataAccessLayer
+@using DatingSite.Controllers
+@model DatingSite.Models.SearchModel
+
+@{
+    ViewBag.Title = "SearchDisplay";
+}
+
+<h2>SearchDisplay</h2>
+
+<div id="searchresults">
+    <ul>
+        @foreach (var result in Model.SearchResult)
+        {
+        <li>@result.Username</li>
+        }
+    </ul>
+</div>
+

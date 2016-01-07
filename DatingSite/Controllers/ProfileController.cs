@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DataAccessLayer;
+using DatingSite.Extensions;
 using DatingSite.Models;
 using System.IO;
 
@@ -26,27 +28,12 @@ namespace DatingSite.Controllers
             {
                 var user = _userRepository.GetUser(username);
 
-                return View(new ProfileModel()
-                {
-                    UserAccountID = user.UserAccountID,
-                    Username = user.Username,
-                    Password = user.Password,
-                    ImagePath = user.ImagePath,
-                    Email = user.Email,
-                    Build = user.Build,
-                    Eyecolor = user.Eyecolor,
-                    Haircolor = user.Haircolor,
-                    Origin = user.Origin,
-                    CivilStatus = user.Civil_Status,
-                    Occupation = user.Occupation,
-                    Education = user.Education,
-                    Branch = user.Branch
-                });
+                return View(user.MapProfileModel());
             }
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }      
         }
 
         [HttpPost]
@@ -60,13 +47,11 @@ namespace DatingSite.Controllers
                             User.Identity.Name,
                             profileToUpdate.Email
                             );
-                    //City = profileToUpdate.City om tid finns.
-                }
+                        //City = profileToUpdate.City om tid finns.
+                    }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(e.InnerException.Message);
-                    return View("_EditProfile");
+                    return View("Error");
                 }
                 return RedirectToAction("Index", "Profile");
             }

@@ -32,8 +32,8 @@ namespace DatingSite.Controllers.ApiControllers
         public void AddMessage(int sender, int reciever, string message)
         {
             try
-            {
-
+        {
+                
             }
             catch(Exception e)
             {

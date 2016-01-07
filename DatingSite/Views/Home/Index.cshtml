@@ -1,17 +1,29 @@
-﻿@{
+﻿@model IList<DatingSite.Models.ProfileModel>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
     <div>
     </div>
-
     @if (User.Identity.IsAuthenticated)
     {
-       
+    <ul>
+        @foreach(var exampleProfile in Model)
+        {
+            <li>@Html.ActionLink(exampleProfile.Username, "Index", "Profile") <img src="http://rainbowvillage.org/wp-content/uploads/2011/03/no-photo-available-300x300.jpg" alt="profilePicture"/></li>
+        }
+    </ul>
     }
     else
     {
+        <ul>
+            @foreach (var exampleProfile in Model)
+            {
+            <li>@Html.ActionLink(exampleProfile.Username,"Register","Account");<img src="http://rainbowvillage.org/wp-content/uploads/2011/03/no-photo-available-300x300.jpg" alt="profilePicture"/></li>
+            }
+        </ul>
         <h1>Are you ready to find love?</h1>
         @Html.ActionLink("Sign up now!", "Register", "Account", "", new { @class = "btn btn-primary btn-lg" })
     }
