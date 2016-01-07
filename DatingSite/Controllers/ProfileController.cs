@@ -20,12 +20,13 @@ namespace DatingSite.Controllers
         }
 
         // GET: Profile
-        public ActionResult Index(ProfileModel model)
+        public ActionResult Index(string username)
         {
-            if (model.Username != null)
+            if (username != null)
             {
-                var user = _userRepository.GetUser(model.Username);
-                return RedirectToAction("Index", "Profile", new RouteValueDictionary(user.Username));
+                var user = _userRepository.GetUser(username);
+                var profile = user.MapProfileModel();
+                return View(profile);
             }
             else
             {
