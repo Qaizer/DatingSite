@@ -1,0 +1,9 @@
+﻿@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", Url = "/api/MessageController" }))
+{
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="text" name="value" value="" />
+            <input type="submit" value="Send" />
+        </div>
+    </div>
+}

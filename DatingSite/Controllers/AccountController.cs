@@ -42,28 +42,30 @@ namespace DatingSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(AccountModel account)
+        public ActionResult Register(AccountModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if(_userRepository.UsernameExists(account.Username))
+                if (_userRepository.UsernameExists(model.Username))
                 {
-                    return View("Error"); //Ska visa ett error vid fältet
+                    ModelState.AddModelError("Username", "This username already exists, please try another.");
                 }
-                else if(_userRepository.EmailExists(account.Email)){
-                    return View("Error"); //Ska visa ett error vid fältet
-                }
-                else
+                if (_userRepository.EmailExists(model.Email))
                 {
-                    _userRepository.Add(account.Username, account.Password, account.Email);
+                    ModelState.AddModelError("Email", "This email already exists, please try another.");
+                }
+
+                if (ModelState.IsValid)
+                {
+                    _userRepository.Add(model.Username, model.Password, model.Email);
                     return RedirectToAction("Index", "Home");
                 }
             }
-            else
+            catch(Exception e)
             {
-                System.Console.WriteLine("Register modelstate is not valid.");
-                return View();
+                return View("Error");
             }
+            return View(model);
         }
     }
 }

@@ -12,8 +12,14 @@
     <div id="ProfilePictureIndex"><img src="" style="width: 200px; height: 250px;"/>
     </div>
     <p>Some profile information and other assorted stuff.</p>
-<div class="partialView"> @Html.Partial("_EditProfile")</div>
+    
+    <div class="editprofile">@Html.Partial("_UploadPhoto")</div>
+    <div class="editprofile">@Html.Partial("_EditProfile")</div>
+
+    <div id="messages">
+    </div>
 }
+
 else
 {
     <h2>@Model.Username 's Profile</h2>
@@ -38,8 +44,14 @@ else
         <p>Origin: @Model.Origin</p>
     </div>
 
-    <div id="messagebox">
-        <h3>Send message</h3>
-    </div>
+    @(Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", Url = "/Controllers/ApiControllers/MessageController" }))
+    {
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="text" name="value" value="" />
+                <input type="submit" value="Send" />
+            </div>
+        </div>
+    }
 }
 

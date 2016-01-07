@@ -17,7 +17,7 @@ namespace DatingSite.Extensions
             {
                 Username = user.Username,
                 Password = user.Password,
-                ImageUrl = user.ImageUrl,
+                ImagePath = user.ImagePath,
                 Email = user.Email,
                 Build = user.Build,
                 Eyecolor = user.Eyecolor,

@@ -7,12 +7,14 @@ using System.Web.Routing;
 using DataAccessLayer;
 using DatingSite.Extensions;
 using DatingSite.Models;
+using System.IO;
 
 namespace DatingSite.Controllers
 {
     public class ProfileController : AuthorizeController
     {
         UserRepository _userRepository;
+
 
         public ProfileController()
         {
@@ -56,6 +58,19 @@ namespace DatingSite.Controllers
             return RedirectToAction("Index", "Profile");
         }
 
+        [HttpPost]
+        public ActionResult UploadPhoto(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/images/profile"), pic);
+
+                file.SaveAs(path);
+            }
+            return RedirectToAction("Index", "Profil");
+        }
     }
 }
 

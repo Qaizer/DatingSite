@@ -31,6 +31,7 @@ namespace DataAccessLayer
         public string Username { get; set; }
         public Nullable<bool> Gender { get; set; }
         public Nullable<System.DateTime> Birthdate { get; set; }
+        public string ImagePath { get; set; }
         public Nullable<int> City { get; set; }
         public Nullable<int> Length { get; set; }
         public Nullable<int> Weight { get; set; }
@@ -42,7 +43,6 @@ namespace DataAccessLayer
         public string Occupation { get; set; }
         public string Education { get; set; }
         public string Branch { get; set; }
-        public string ImageUrl { get; set; }
     
         public virtual City City1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
