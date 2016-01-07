@@ -18,7 +18,7 @@ namespace DataAccessLayer
         public int Sender { get; set; }
         public int Reciever { get; set; }
         public string Message1 { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual UserAccount UserAccount { get; set; }
         public virtual UserAccount UserAccount1 { get; set; }

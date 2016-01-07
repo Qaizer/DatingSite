@@ -9,6 +9,7 @@ namespace DatingSite.Models
 {
     public class ProfileModel
     {
+        public int UserAccountID { get; set; }
         public string Username { get; set; } 
         public string ImageUrl { get; set; }
 
@@ -29,6 +30,7 @@ namespace DatingSite.Models
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; } 
         public City City { get; set;}
+        public string ImagePath { get; set; }
         public int Length { get; set; }
         public int Weight { get; set; }
         public string Build { get; set; }
@@ -40,7 +42,7 @@ namespace DatingSite.Models
         public string Education { get; set; }
         public string Branch { get; set; }
 
-        public IList<Message> Messages {get; set; }
+        public IList<Message> Messages { get; set; }
 
         #region selection enums
 

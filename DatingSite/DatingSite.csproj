@@ -156,6 +156,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\OnlineDatingDB.mdf" />
+    <Content Include="App_Data\OnlineDatingDB_log.ldf">
+      <DependentUpon>OnlineDatingDB.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -195,10 +199,11 @@
     <Content Include="Views\Shared\_Logout.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\_EditProfile.cshtml" />
+    <Content Include="Views\Profile\_PostMessage.cshtml" />
+    <Content Include="Views\Profile\_UploadPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Content\UserPictures\" />
+    <Folder Include="Content\ProfilePictures\" />
     <Folder Include="Views\Authorize\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>

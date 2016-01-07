@@ -1,0 +1,11 @@
+﻿@using (Html.BeginForm("UploadPhoto", "Profile", FormMethod.Post,
+                                        new { enctype = "multipart/form-data" }))
+{
+    <label for="file">Upload Image:</label>
+    <input type="file" name="file" id="file" />
+    <input type="submit" value="Upload" class="submit" />
+}}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

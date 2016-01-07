@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using DataAccessLayer;
 using DatingSite.Models;
+using System.IO;
 
 namespace DatingSite.Controllers
 {
     public class ProfileController : AuthorizeController
     {
         UserRepository _userRepository;
+
 
         public ProfileController()
         {
@@ -23,26 +25,28 @@ namespace DatingSite.Controllers
             if (username != null)
             {
                 var user = _userRepository.GetUser(username);
-                   return View( new ProfileModel
-                    {
-                        Username = user.Username,
-                        Password = user.Password,
-                        ImageUrl = user.ImageUrl,
-                        Email = user.Email,
-                        Build = user.Build,
-                        Eyecolor = user.Eyecolor,
-                        Haircolor = user.Haircolor,
-                        Origin = user.Origin,
-                        CivilStatus = user.Civil_Status,
-                        Occupation = user.Occupation,
-                        Education = user.Education,
-                        Branch = user.Branch
-                    });
+
+                return View(new ProfileModel()
+                {
+                    UserAccountID = user.UserAccountID,
+                    Username = user.Username,
+                    Password = user.Password,
+                    ImagePath = user.ImagePath,
+                    Email = user.Email,
+                    Build = user.Build,
+                    Eyecolor = user.Eyecolor,
+                    Haircolor = user.Haircolor,
+                    Origin = user.Origin,
+                    CivilStatus = user.Civil_Status,
+                    Occupation = user.Occupation,
+                    Education = user.Education,
+                    Branch = user.Branch
+                });
             }
             else
             {
                 return RedirectToAction("Index", "Home");
-            }      
+            }
         }
 
         [HttpPost]
@@ -56,10 +60,12 @@ namespace DatingSite.Controllers
                             User.Identity.Name,
                             profileToUpdate.Email
                             );
-                        //City = profileToUpdate.City om tid finns.
-                    }
+                    //City = profileToUpdate.City om tid finns.
+                }
                 catch (Exception e)
                 {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.InnerException.Message);
                     return View("_EditProfile");
                 }
                 return RedirectToAction("Index", "Profile");
@@ -67,6 +73,19 @@ namespace DatingSite.Controllers
             return RedirectToAction("Index", "Profile");
         }
 
+        [HttpPost]
+        public ActionResult UploadPhoto(HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/images/profile"), pic);
+
+                file.SaveAs(path);
+            }
+            return RedirectToAction("Index", "Profil");
+        }
     }
 }
 

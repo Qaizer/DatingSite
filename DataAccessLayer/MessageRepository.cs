@@ -19,6 +19,16 @@ namespace DataAccessLayer
                     Message1 = message,
                     Date = date
                 };
+                context.Message.Add(messageToAdd);
+                context.SaveChanges();
+            }
+        }
+
+        public IList<Message> GetUserMessageList(int reciever)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                return context.Message.Where(x => x.Reciever == reciever).ToList();
             }
         }
     }

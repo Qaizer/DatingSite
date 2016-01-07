@@ -19,11 +19,27 @@ namespace DatingSite.Controllers.ApiControllers
             _userRepository = new UserRepository();
             _messageRepository = new MessageRepository();
         }
-        public MessageModel SendMessage(string sender, string reciever, string message)
+
+        [HttpGet]
+        public IList<Message> GetMessages(string username)
         {
-            var messageToAdd = new MessageModel(
-                
-                );
+            var reciever = _userRepository.GetUser(username);
+
+            return _messageRepository.GetUserMessageList(reciever.UserAccountID);
+
+        }
+
+        public void AddMessage(int sender, int reciever, string message)
+        {
+            try
+            {
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.InnerException.Message);
+            }
         }
     }
 }
