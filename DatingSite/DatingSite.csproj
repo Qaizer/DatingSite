@@ -146,13 +146,16 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="ErrorHandler.cs" />
+    <Compile Include="Extensions\EntityExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -195,11 +198,12 @@
     <Content Include="Views\Shared\_Logout.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\_EditProfile.cshtml" />
+    <Content Include="Views\Shared\_SearchUser.cshtml" />
+    <Content Include="Views\Search\SearchDisplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\UserPictures\" />
-    <Folder Include="Views\Authorize\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>
   <ItemGroup>

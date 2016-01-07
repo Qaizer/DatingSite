@@ -72,7 +72,23 @@ namespace DataAccessLayer
             {
                 return context.UserAccount.First(x => x.Username == username);
             }
-        } 
+        }
+
+        public IList<UserAccount> GetUserList(int amount)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                return context.UserAccount.OrderBy(o => Guid.NewGuid()).Take(amount).ToList();
+            }
+        }
+
+        public IList<UserAccount> SearchUser(string searchString)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                return context.UserAccount.Where(x => x.Username.StartsWith(searchString)).ToList();
+            }
+        }
 
         #endregion
     }

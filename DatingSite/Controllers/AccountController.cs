@@ -12,7 +12,7 @@ namespace DatingSite.Controllers
 {
     public class AccountController : Controller
     {
-        UserRepository _userRepository;
+        readonly UserRepository _userRepository;
 
         public AccountController()
         {
@@ -48,10 +48,10 @@ namespace DatingSite.Controllers
             {
                 if(_userRepository.UsernameExists(account.Username))
                 {
-                    return View(); //Ska visa ett error vid fältet
+                    return View("Error"); //Ska visa ett error vid fältet
                 }
                 else if(_userRepository.EmailExists(account.Email)){
-                    return View(); //Ska visa ett error vid fältet
+                    return View("Error"); //Ska visa ett error vid fältet
                 }
                 else
                 {

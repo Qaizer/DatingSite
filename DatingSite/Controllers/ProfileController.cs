@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DataAccessLayer;
+using DatingSite.Extensions;
 using DatingSite.Models;
 
 namespace DatingSite.Controllers
@@ -18,26 +20,12 @@ namespace DatingSite.Controllers
         }
 
         // GET: Profile
-        public ActionResult Index(string username)
+        public ActionResult Index(ProfileModel model)
         {
-            if (username != null)
+            if (model.Username != null)
             {
-                var user = _userRepository.GetUser(username);
-                   return View( new ProfileModel
-                    {
-                        Username = user.Username,
-                        Password = user.Password,
-                        ImageUrl = user.ImageUrl,
-                        Email = user.Email,
-                        Build = user.Build,
-                        Eyecolor = user.Eyecolor,
-                        Haircolor = user.Haircolor,
-                        Origin = user.Origin,
-                        CivilStatus = user.Civil_Status,
-                        Occupation = user.Occupation,
-                        Education = user.Education,
-                        Branch = user.Branch
-                    });
+                var user = _userRepository.GetUser(model.Username);
+                return RedirectToAction("Index", "Profile", new RouteValueDictionary(user.Username));
             }
             else
             {
@@ -60,7 +48,7 @@ namespace DatingSite.Controllers
                     }
                 catch (Exception e)
                 {
-                    return View("_EditProfile");
+                    return View("Error");
                 }
                 return RedirectToAction("Index", "Profile");
             }

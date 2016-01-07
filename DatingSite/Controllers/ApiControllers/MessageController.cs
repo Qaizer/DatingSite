@@ -19,11 +19,11 @@ namespace DatingSite.Controllers.ApiControllers
             _userRepository = new UserRepository();
             _messageRepository = new MessageRepository();
         }
-        public MessageModel SendMessage(string sender, string reciever, string message)
+       /*public MessageModel SendMessage(string sender, string reciever, string message)
         {
             var messageToAdd = new MessageModel(
                 
                 );
-        }
+        }*/ 
     }
 }
