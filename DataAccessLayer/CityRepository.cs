@@ -8,7 +8,7 @@ namespace DataAccessLayer
 {
     public class CityRepository
     {
-        public List<City> getAllCities()
+        public List<City> GetAllCities()
         {
             List<City> cities = new List<City>();
             using (var context = new OnlineDatingDBEntities())

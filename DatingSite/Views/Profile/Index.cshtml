@@ -9,7 +9,8 @@
 {
     <h2>@User.Identity.Name</h2>
 
-    <div id="ProfilePictureIndex"><img src="" style="width: 200px; height: 250px;"/>
+    <div id="ProfilePictureIndex">
+        <img src="~/Content/ProfilePictures/@Model.ImagePath" style="width: 200px; height: 250px;" alt="Profile Picture"/>
     </div>
     <p>Some profile information and other assorted stuff.</p>
     
@@ -23,7 +24,7 @@
 else
 {
     <h2>@Model.Username 's Profile</h2>
-    <div id="ProfilePictureIndex"><img src="" style="width: 200px; height: 250px;"/>
+    <div id="ProfilePictureIndex"><img src="~/Content/ProfilePictures/@Model.ImagePath" style="width: 200px; height: 250px;" alt="Profile Picture"/>
     </div>
 
     <div class="profile-info-section">
