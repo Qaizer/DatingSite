@@ -23,7 +23,7 @@ namespace DatingSite.Controllers
         {
             if (!ModelState.IsValid) return View();
             var amount = User.Identity.IsAuthenticated ? 5 : 4;
-            var userList = _userRepository.GetUserList(amount);
+            var userList = _userRepository.GetRandomUsers(amount);
             IList<ProfileModel> profileModels = userList.Select(userAccount => userAccount.MapProfileModel()).ToList();
 
             return View(profileModels);

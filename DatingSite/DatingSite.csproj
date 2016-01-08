@@ -143,6 +143,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ApiControllers\MessageController.cs" />
     <Compile Include="Controllers\AuthorizeController.cs" />
+    <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -153,6 +154,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\FriendsModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
@@ -210,6 +212,7 @@
   <ItemGroup>
     <Folder Include="Content\ProfilePictures\" />
     <Folder Include="Views\Authorize\" />
+    <Folder Include="Views\Friends\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>
   <ItemGroup>

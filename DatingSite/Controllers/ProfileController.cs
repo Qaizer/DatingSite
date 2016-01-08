@@ -76,7 +76,7 @@ namespace DatingSite.Controllers
                                        Server.MapPath("~/Content/ProfilePictures"), pic);
 
                 file.SaveAs(path);
-                _userRepository.SaveImagePath(user, path);
+                _userRepository.SaveImagePath(user, pic);
             }
             return RedirectToAction("Index", "Profile");
         }

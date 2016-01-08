@@ -84,8 +84,15 @@ namespace DataAccessLayer
                 return context.UserAccount.First(x => x.Username == username);
             }
         }
+        public UserAccount GetUser(int userAccountID)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                return context.UserAccount.First(x => x.UserAccountID == userAccountID);
+            }
+        }
 
-        public IList<UserAccount> GetUserList(int amount)
+        public IList<UserAccount> GetRandomUsers(int amount)
         {
             using (var context = new OnlineDatingDBEntities())
             {
