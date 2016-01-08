@@ -63,20 +63,20 @@ namespace DatingSite.Controllers
        { 
             if (file != null)
             {
-                string user = User.Identity.Name;
-                string oldPic = _userRepository.GetUser(user).ImagePath;
+                var user = User.Identity.Name;
+                var oldPic = _userRepository.GetUser(user).ImagePath;
 
                 if (oldPic != null)
                 {
                     System.IO.File.Delete(oldPic);
                 }
 
-                string pic = System.IO.Path.GetFileName(file.FileName);
-                string path = System.IO.Path.Combine(
+                var pic = Path.GetFileName(file.FileName);
+                var path = Path.Combine(
                                        Server.MapPath("~/Content/ProfilePictures"), pic);
 
                 file.SaveAs(path);
-                _userRepository.SaveImagePath(user, path);
+                _userRepository.SaveImagePath(user,pic);
             }
             return RedirectToAction("Index", "Profile");
         }

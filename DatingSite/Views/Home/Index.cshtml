@@ -12,7 +12,7 @@
     <ul>
         @foreach(var exampleProfile in Model)
         {
-            <li>@Html.ActionLink(exampleProfile.Username, "Index", "Profile", new RouteValueDictionary(new {username = exampleProfile.Username}), null) <img src=@exampleProfile.ImagePath alt="Profile picture"/></li>
+            <li>@Html.ActionLink(exampleProfile.Username, "Index", "Profile", new RouteValueDictionary(new {username = exampleProfile.Username}), null) <img src="~/Content/ProfilePictures/@exampleProfile.ImagePath" alt="Profile picture"/></li>
         }
     </ul>
     }
@@ -21,7 +21,7 @@
         <ul>
             @foreach (var exampleProfile in Model)
             {
-            <li>@Html.ActionLink(exampleProfile.Username,"Register","Account")<img src=@exampleProfile.ImagePath alt="Profile picture"/></li>
+            <li>@Html.ActionLink(exampleProfile.Username,"Register","Account")<img src="~/Content/ProfilePictures/@exampleProfile.ImagePath" alt="Profile picture"/></li>
             }
         </ul>
         <h1>Are you ready to find love?</h1>
