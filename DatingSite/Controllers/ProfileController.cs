@@ -60,14 +60,23 @@ namespace DatingSite.Controllers
 
         [HttpPost]
         public ActionResult UploadPhoto(HttpPostedFileBase file)
-        {
+       { 
             if (file != null)
             {
+                string user = User.Identity.Name;
+                string oldPic = _userRepository.GetUser(user).ImagePath;
+
+                if (oldPic != null)
+                {
+                    System.IO.File.Delete(oldPic);
+                }
+
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 string path = System.IO.Path.Combine(
-                                       Server.MapPath("~/images/profile"), pic);
+                                       Server.MapPath("~/Content/ProfilePictures"), pic);
 
                 file.SaveAs(path);
+                _userRepository.SaveImagePath(user, path);
             }
             return RedirectToAction("Index", "Profile");
         }
