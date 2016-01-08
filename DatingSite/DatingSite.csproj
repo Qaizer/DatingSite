@@ -208,8 +208,6 @@
     <Content Include="Views\Profile\_UploadPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Content\UserPictures\" />
     <Folder Include="Content\ProfilePictures\" />
     <Folder Include="Views\Authorize\" />
     <Folder Include="Views\Register\" />

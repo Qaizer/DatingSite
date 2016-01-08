@@ -65,6 +65,17 @@ namespace DataAccessLayer
         }
         #endregion
 
+        public void SaveImagePath(string username,string imagePath)
+        { 
+            using (var context = new OnlineDatingDBEntities())
+            {
+                var userToUpdate = context.UserAccount.First(x => x.Username == username);
+                userToUpdate.ImagePath = imagePath;
+
+                context.SaveChanges();
+            }
+        }
+
         #region getData
         public UserAccount GetUser(string username)
         {
