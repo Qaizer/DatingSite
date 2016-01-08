@@ -69,7 +69,7 @@ namespace DatingSite.Controllers
 
                 file.SaveAs(path);
             }
-            return RedirectToAction("Index", "Profil");
+            return RedirectToAction("Index", "Profile");
         }
     }
 }
