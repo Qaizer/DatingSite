@@ -55,13 +55,13 @@
       <DependentUpon>OnlineDatingDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CityRepository.cs" />
-    <Compile Include="FriendshipRepository.cs" />
     <Compile Include="FriendRequest.cs">
       <DependentUpon>OnlineDatingDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Friendship.cs">
       <DependentUpon>OnlineDatingDBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FriendshipRepository.cs" />
     <Compile Include="Message.cs">
       <DependentUpon>OnlineDatingDBModel.tt</DependentUpon>
     </Compile>

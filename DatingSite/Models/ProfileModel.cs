@@ -42,8 +42,6 @@ namespace DatingSite.Models
         public string Education { get; set; }
         public string Branch { get; set; }
 
-        public IList<Message> Messages { get; set; }
-
         #region selection enums
 
 

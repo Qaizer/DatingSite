@@ -17,8 +17,8 @@ namespace DataAccessLayer
         public int MessageID { get; set; }
         public int Sender { get; set; }
         public int Reciever { get; set; }
-        public string Message1 { get; set; }
-        public System.DateTime Date { get; set; }
+        public string Text { get; set; }
+        public System.DateTime TimeStamp { get; set; }
     
         public virtual UserAccount UserAccount { get; set; }
         public virtual UserAccount UserAccount1 { get; set; }

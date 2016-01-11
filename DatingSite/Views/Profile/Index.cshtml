@@ -19,6 +19,15 @@
 
     <div id="messages">
     </div>
+    
+    <script>
+        $.get('/api/Message/GetMessages', function(data) {
+            $.each, function(){}
+        $('#messages').append('<p>Avsändare: ' + data + '</p>');
+        $('#messages').append('<br/>');
+        $('#messages').append('<p>Land: ' + data.Country + '</p>');
+    });
+    </script>
 }
 
 else

@@ -8,7 +8,7 @@ namespace DataAccessLayer
 {
     public class MessageRepository
     {
-        public void AddMessage(int sender, int reciever, string message, DateTime date)
+        public void AddMessage(int sender, int reciever, string text, DateTime timeStamp)
         {
             using (var context = new OnlineDatingDBEntities())
             {
@@ -16,15 +16,15 @@ namespace DataAccessLayer
                 {
                     Sender = sender,
                     Reciever = reciever,
-                    Message1 = message,
-                    Date = date
+                    Text = text,
+                    TimeStamp = timeStamp
                 };
                 context.Message.Add(messageToAdd);
                 context.SaveChanges();
             }
         }
 
-        public IList<Message> GetUserMessageList(int reciever)
+        public IList<Message> GetMessageList(int reciever)
         {
             using (var context = new OnlineDatingDBEntities())
             {

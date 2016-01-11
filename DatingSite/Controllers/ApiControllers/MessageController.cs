@@ -21,19 +21,33 @@ namespace DatingSite.Controllers.ApiControllers
         }
 
         [HttpGet]
-        public IList<Message> GetMessages(string username)
+        public IList<MessageModel> GetMessages()
         {
-            var reciever = _userRepository.GetUser(username);
+            var messages = new List<MessageModel>();
+            var reciever = _userRepository.GetUser(User.Identity.Name);
 
-            return _messageRepository.GetUserMessageList(reciever.UserAccountID);
+            var messageReferenceList = _messageRepository.GetMessageList(reciever.UserAccountID);
+
+            foreach(var m in messageReferenceList)
+            {
+                var sender = _userRepository.GetUser(m.Sender);
+                var model = new MessageModel
+                {
+                    SenderUsername = sender.Username,
+                    Text = m.Text,
+                    TimeStamp = DateTime.Now //TODO: Ändra till m.TimeStamp
+                };
+                messages.Add(model);
+            }
+            return messages;        
 
         }
 
-        public void AddMessage(int sender, int reciever, string message)
+        [HttpPost]
+        public void PostMessage(MessageModel model)
         {
             try
-        {
-                
+            {
             }
             catch(Exception e)
             {

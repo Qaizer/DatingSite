@@ -9,11 +9,11 @@ namespace DatingSite.Models
 {
     public class MessageModel
     {
-        public UserAccount Sender { get; set; }
-        public UserAccount Reciever { get; set; }
+        public string SenderUsername { get; set; }
 
         [Required(ErrorMessage = "Please enter a message.")]
-        public string Message { get; set; }
-        public DateTime DateTime { get; set; }
+        public string Text { get; set; }
+
+        public DateTime TimeStamp { get; set; }
     }
 }

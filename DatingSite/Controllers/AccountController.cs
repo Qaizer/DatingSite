@@ -63,7 +63,7 @@ namespace DatingSite.Controllers
             }
             catch(Exception e)
             {
-                return View("Error");
+                return RedirectToAction("Index", "Error", e);
             }
             return View(model);
         }

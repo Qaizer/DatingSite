@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using DataAccessLayer;
 using DatingSite.Models;
+using DatingSite.Controllers.ApiControllers;
 
 namespace DatingSite.Extensions
 {
@@ -11,8 +12,6 @@ namespace DatingSite.Extensions
     {
         public static ProfileModel MapProfileModel(this UserAccount user)
         {
-
-
             return new ProfileModel
             {
                 Username = user.Username,
@@ -26,7 +25,7 @@ namespace DatingSite.Extensions
                 CivilStatus = user.Civil_Status,
                 Occupation = user.Occupation,
                 Education = user.Education,
-                Branch = user.Branch
+                Branch = user.Branch              
             };
         }
     }

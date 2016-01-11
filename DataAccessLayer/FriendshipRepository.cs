@@ -8,11 +8,19 @@ namespace DataAccessLayer
 {
     public class FriendshipRepository
     {
-        public IList<Friendship> GetFriends(int userAccountID)
+        public IList<Friendship> GetFriendships(int userAccountID)
         {
             using (var context = new OnlineDatingDBEntities())
             {
-                return context.Friendship.Where(x => x.User == userAccountID).ToList();
+                var list1 = context.Friendship.Where(x => x.User == userAccountID).ToList();
+                var list2 = context.Friendship.Where(x => x.Friend == userAccountID).ToList();
+
+                foreach(var x in list2)
+                {
+                    list1.Add(x);
+                }
+
+                return list1;
             }
         }
     }

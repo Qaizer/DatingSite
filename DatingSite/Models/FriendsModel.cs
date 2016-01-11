@@ -8,6 +8,6 @@ namespace DatingSite.Models
 {
     public class FriendsModel
     {
-        public IList<UserAccount> Friends { get; set; }
+        public IList<ProfileModel> Friends { get; set; }
     }
 }
