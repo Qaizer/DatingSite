@@ -21,7 +21,7 @@
         <ul>
             @foreach (var exampleProfile in Model)
             {
-            <li>@Html.ActionLink(exampleProfile.Username,"Register","Account")<img src="~/Content/ProfilePictures/@exampleProfile.ImagePath" alt="Profile picture"/></li>
+            <li>@Html.ActionLink(exampleProfile.Username,"Register","Account")<img src="~/Content/ProfilePictures/@exampleProfile.ImagePath" alt="Profile picture" style="width: 150px; height: 200px; border: 2px solid black; display: table-column"/></li>
             }
         </ul>
         <h1>Are you ready to find love?</h1>

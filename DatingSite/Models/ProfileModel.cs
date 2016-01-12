@@ -42,6 +42,8 @@ namespace DatingSite.Models
         public string Education { get; set; }
         public string Branch { get; set; }
 
+        [Display(Name = "Searchable")]
+        public bool Searchable { get; set; }
         public bool PendingFriendRequest { get; set; }
         public bool IsFriend { get; set; }
         

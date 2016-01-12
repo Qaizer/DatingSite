@@ -43,6 +43,7 @@ namespace DataAccessLayer
         public string Occupation { get; set; }
         public string Education { get; set; }
         public string Branch { get; set; }
+        public Nullable<bool> Searchable { get; set; }
     
         public virtual City City1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
