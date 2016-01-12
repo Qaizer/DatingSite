@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using DataAccessLayer;
+using System.Text;
 using DatingSite.Extensions;
 using DatingSite.Models;
 using System.IO;
@@ -45,7 +47,8 @@ namespace DatingSite.Controllers
                 {
                     _userRepository.UpdateUser(
                             User.Identity.Name,
-                            profileToUpdate.Email
+                            profileToUpdate.Email,
+                            profileToUpdate.Searchable
                             );
                         //City = profileToUpdate.City om tid finns.
                     }

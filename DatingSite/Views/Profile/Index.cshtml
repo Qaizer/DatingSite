@@ -1,32 +1,34 @@
-﻿@model DatingSite.Models.ProfileModel
+﻿@using System.Data.Entity.Core.Common.EntitySql
+@using Antlr.Runtime.Tree
+@model DatingSite.Models.ProfileModel
 
 @{
     ViewBag.Title = Model.Username;
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@if (User.Identity.Name == Model.Username)
+@if (string.Equals(User.Identity.Name, Model.Username, StringComparison.CurrentCultureIgnoreCase))
 {
-    <h2>@User.Identity.Name</h2>
+    <h2>User.Identity.Name</h2>
 
     <div id="ProfilePictureIndex">
         <img src="~/Content/ProfilePictures/@Model.ImagePath" style="width: 200px; height: 250px;" alt="Profile Picture"/>
     </div>
     <p>Some profile information and other assorted stuff.</p>
-    
+
     <div class="editprofile">@Html.Partial("_UploadPhoto")</div>
     <div class="editprofile">@Html.Partial("_EditProfile")</div>
 
     <div id="messages">
     </div>
-    
+
     <script>
         $.get('/api/Message/GetMessages', function(data) {
-            $.each, function(){}
-        $('#messages').append('<p>Avsändare: ' + data + '</p>');
-        $('#messages').append('<br/>');
-        $('#messages').append('<p>Land: ' + data.Country + '</p>');
-    });
+            $.each, function() {}
+            $('#messages').append('<p>Avsändare: ' + data + '</p>');
+            $('#messages').append('<br/>');
+            $('#messages').append('<p>Land: ' + data.Country + '</p>');
+        });
     </script>
 }
 
@@ -53,15 +55,8 @@ else
         <p>Haircolor: @Model.Haircolor</p>
         <p>Origin: @Model.Origin</p>
     </div>
-
-    @(Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", Url = "/Controllers/ApiControllers/MessageController" }))
-    {
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="text" name="value" value="" />
-                <input type="submit" value="Send" />
-            </div>
-        </div>
-    }
+    <div id="btnMessagePartial">
+        @Html.Partial("_PostMessage", Model)
+    </div>
 }
 

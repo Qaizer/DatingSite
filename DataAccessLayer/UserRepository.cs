@@ -45,21 +45,22 @@ namespace DataAccessLayer
                 {
                     Username = username,
                     Password = password,
-                    Email = email
+                    Email = email,
+                    Searchable = true
                 };
                 context.UserAccount.Add(newUser);
                 context.SaveChanges();
             }
         }
 
-        public void UpdateUser(string username, string newEmail)
+        public void UpdateUser(string username, string newEmail, bool searchable)
         {
             using (var context = new OnlineDatingDBEntities())
             {
                 var userToUpdate = context.UserAccount.First(x => x.Username == username);
 
                 userToUpdate.Email = newEmail;
-
+                userToUpdate.Searchable = searchable;
                 context.SaveChanges();
             }
         }
@@ -104,7 +105,9 @@ namespace DataAccessLayer
         {
             using (var context = new OnlineDatingDBEntities())
             {
-                return context.UserAccount.Where(x => x.Username.StartsWith(searchString)).ToList();
+                var searchResultList = context.UserAccount.Where(x => x.Username.StartsWith(searchString) && x.Searchable == true).ToList();
+
+                return searchResultList;
             }
         }
 

@@ -1,9 +1,11 @@
-﻿@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", Url = "/api/MessageController" }))
+﻿@model DatingSite.Models.ProfileModel
+@Scripts.Render("~/bundles/jquery")
+
+@using (Ajax.BeginForm(new AjaxOptions {Url = "~/api/Message/PostMessage", HttpMethod = "POST"}))
 {
-    <div class="form-group">
-        <div class="col-md-10">
-            <input type="text" name="value" value="" />
-            <input type="submit" value="Send" />
-        </div>
-    </div>
+    <input type="hidden" name="reciever" value='@Model.Username' />
+    <input type="text" name="message" value="Enter a message"/>
+
+    <input type="submit" value="Send" />
 }
+ 

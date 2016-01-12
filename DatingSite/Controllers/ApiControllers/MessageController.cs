@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Routing;
+using System.Web.Mvc;
 using DataAccessLayer;
 using DatingSite.Models;
 
@@ -20,34 +23,34 @@ namespace DatingSite.Controllers.ApiControllers
             _messageRepository = new MessageRepository();
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public IList<MessageModel> GetMessages()
         {
-            var messages = new List<MessageModel>();
             var reciever = _userRepository.GetUser(User.Identity.Name);
 
             var messageReferenceList = _messageRepository.GetMessageList(reciever.UserAccountID);
 
-            foreach(var m in messageReferenceList)
-            {
-                var sender = _userRepository.GetUser(m.Sender);
-                var model = new MessageModel
+            return (from m in messageReferenceList
+                let sender = _userRepository.GetUser(m.Sender)
+                select new MessageModel
                 {
                     SenderUsername = sender.Username,
                     Text = m.Text,
                     TimeStamp = DateTime.Now //TODO: Ändra till m.TimeStamp
-                };
-                messages.Add(model);
-            }
-            return messages;        
+                    }).ToList();   
 
         }
 
-        [HttpPost]
-        public void PostMessage(MessageModel model)
+        [System.Web.Http.HttpPost]
+        public void PostMessage([FromBody]string reciever, [FromBody]string message)
         {
             try
             {
+                var sender = User.Identity.Name;
+                var senderId = _userRepository.GetUser(sender).UserAccountID;
+                var recieverId = _userRepository.GetUser(reciever).UserAccountID;
+
+                _messageRepository.AddMessage(senderId, recieverId, message);
             }
             catch(Exception e)
             {
