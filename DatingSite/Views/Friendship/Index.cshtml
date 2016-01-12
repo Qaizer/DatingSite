@@ -1,0 +1,16 @@
+﻿@model DatingSite.Models.FriendshipModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<ul>
+    @foreach (var f in Model.Friends)
+    {
+        <li>@Html.ActionLink(f.Username, "Index", "Profile", new RouteValueDictionary(new { username = f.Username }), null)</li>
+    }
+</ul>
+
+<div>@Html.Partial("_FriendRequests", Model)</div>
+
