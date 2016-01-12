@@ -42,6 +42,9 @@ namespace DatingSite.Models
         public string Education { get; set; }
         public string Branch { get; set; }
 
+        public bool PendingFriendRequest { get; set; }
+        public bool IsFriend { get; set; }
+        
         #region selection enums
 
 

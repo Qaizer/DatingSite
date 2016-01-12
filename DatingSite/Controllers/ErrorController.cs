@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace DatingSite.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : AuthorizeController
     {
         // GET: Error
         public ActionResult Index(ErrorModel model)

@@ -16,16 +16,20 @@
     
     <div class="editprofile">@Html.Partial("_UploadPhoto")</div>
     <div class="editprofile">@Html.Partial("_EditProfile")</div>
-
+    
     <div id="messages">
     </div>
-    
+
+    @Scripts.Render("~/bundles/jquery");
     <script>
-        $.get('/api/Message/GetMessages', function(data) {
-            $.each, function(){}
-        $('#messages').append('<p>Avsändare: ' + data + '</p>');
-        $('#messages').append('<br/>');
-        $('#messages').append('<p>Land: ' + data.Country + '</p>');
+    $.getJSON('/api/Message/GetMessages', function(data) {
+        $.each(data, function(key, message) {
+            $('#messages').append('<div class="message">');
+            $('#messages').append('<p>' + message.SenderUsername + '</p>');
+            $('#messages').append('<br />');
+            $('#messages').append('<p>' + message.Text + '</p>');
+            $('#messages').append('</div>');
+        })
     });
     </script>
 }
@@ -33,7 +37,22 @@
 else
 {
     <h2>@Model.Username 's Profile</h2>
-    <div id="ProfilePictureIndex"><img src="~/Content/ProfilePictures/@Model.ImagePath" style="width: 200px; height: 250px;" alt="Profile Picture"/>
+    <div id="ProfilePictureIndex">
+        <img src="~/Content/ProfilePictures/@Model.ImagePath" style="width: 200px; height: 250px;" alt="Profile Picture"/>
+        @using (Html.BeginForm("SendRequest", "Friendship"))
+        {
+            <input type="hidden" name="friendUsername" value="@Model.Username" />
+
+                if (Model.PendingFriendRequest)
+                {
+                <input type="submit" name="addFriend" value="Requested" disabled="disabled"/>
+                }
+                else
+                {
+                <input type="submit" name="addFriend" value="Add friend"/>
+                }
+            }
+        }
     </div>
 
     <div class="profile-info-section">

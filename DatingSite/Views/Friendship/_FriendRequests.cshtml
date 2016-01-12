@@ -1,0 +1,13 @@
+﻿@model DatingSite.Models.FriendshipModel
+
+<div id="friendRequests">
+    @foreach (var f in Model.FriendRequests)
+    {
+        <div class="request">
+            <p>@f.Username wants to be your friend!</p>
+            @Html.ActionLink("Accept", "AcceptRequest", "Friendship", new RouteValueDictionary(new { senderID = f.UserAccountID }), null)
+            @Html.ActionLink("Decline", "DeclineRequest", "Friendship", new RouteValueDictionary(new { senderID = f.UserAccountID }), null)
+        </div>
+    }
+</div>
+

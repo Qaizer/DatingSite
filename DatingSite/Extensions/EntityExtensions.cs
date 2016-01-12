@@ -14,6 +14,7 @@ namespace DatingSite.Extensions
         {
             return new ProfileModel
             {
+                UserAccountID = user.UserAccountID,
                 Username = user.Username,
                 Password = user.Password,
                 ImagePath = user.ImagePath,
@@ -25,7 +26,7 @@ namespace DatingSite.Extensions
                 CivilStatus = user.Civil_Status,
                 Occupation = user.Occupation,
                 Education = user.Education,
-                Branch = user.Branch              
+                Branch = user.Branch
             };
         }
     }

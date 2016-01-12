@@ -14,11 +14,13 @@ namespace DatingSite.Controllers
     public class ProfileController : AuthorizeController
     {
         UserRepository _userRepository;
+        FriendshipRepository _friendshipRepository;
 
 
         public ProfileController()
         {
             _userRepository = new UserRepository();
+            _friendshipRepository = new FriendshipRepository();
         }
 
         // GET: Profile
@@ -26,9 +28,26 @@ namespace DatingSite.Controllers
         {
             if (username != null)
             {
-                var user = _userRepository.GetUser(username);
-                var profile = user.MapProfileModel();
-                return View(profile);
+                var userAccount = _userRepository.GetUser(username);
+                var profileModel = userAccount.MapProfileModel();
+
+                if (profileModel.Username != User.Identity.Name)
+                {
+                    var userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+                    var friendID = profileModel.UserAccountID;
+
+                    if (_friendshipRepository.ExistingRequest(userID, friendID))
+                        profileModel.PendingFriendRequest = true;
+                    else
+                        profileModel.PendingFriendRequest = false;
+
+                    if (_friendshipRepository.ExistingFriendship(userID, friendID))
+                        profileModel.IsFriend = true;
+                    else
+                        profileModel.IsFriend = true;
+
+                }
+                return View(profileModel);
             }
             else
             {

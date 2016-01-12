@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("My Friends", "Index", "Friendship")</li>
                     <li>@Html.ActionLink("My Profile", "Index", "Profile", new RouteValueDictionary(new {username = User.Identity.Name}), null)</li>
                 </ul>
                 @if (User.Identity.IsAuthenticated)

@@ -12,7 +12,7 @@
     <ul>
         @foreach (var result in Model.SearchResult)
         {
-        <li>@result.Username</li>
+        <li>@Html.ActionLink(result.Username, "Index", "Profile", new RouteValueDictionary(new { username = result.Username }), null)</li>
         }
     </ul>
 </div>

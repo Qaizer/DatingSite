@@ -156,7 +156,7 @@
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
-    <Compile Include="Models\FriendsModel.cs" />
+    <Compile Include="Models\FriendshipModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
@@ -210,12 +210,14 @@
     <Content Include="Views\Search\SearchDisplay.cshtml" />
     <Content Include="Views\Profile\_PostMessage.cshtml" />
     <Content Include="Views\Profile\_UploadPhoto.cshtml" />
+    <Content Include="Views\Profile\_ListMessages.cshtml" />
+    <Content Include="Views\Friendship\Index.cshtml" />
+    <Content Include="Views\Friendship\_FriendRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\ProfilePictures\" />
     <Folder Include="Views\Authorize\" />
     <Folder Include="Views\Error\" />
-    <Folder Include="Views\Friends\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>
   <ItemGroup>

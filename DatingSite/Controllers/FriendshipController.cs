@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DatingSite.Controllers
 {
-    public class FriendshipController : Controller
+    public class FriendshipController : AuthorizeController
     {
         UserRepository _userRepository;
         FriendshipRepository _friendshipRepository;
@@ -20,31 +21,83 @@ namespace DatingSite.Controllers
             _friendshipRepository = new FriendshipRepository();
         }
 
-        // GET: Friendships
+        #region Get
         public ActionResult Index()
         {
-            var friendModelList = new List<ProfileModel>();
-            var userAccount = _userRepository.GetUser(User.Identity.Name);
-
-            var friendShipList = _friendshipRepository.GetFriendships(userAccount.UserAccountID);
-            
-            foreach(var f in friendShipList)
+            if (ModelState.IsValid)
             {
-                if (f.User == userAccount.UserAccountID)
+                try
                 {
-                    var friend = _userRepository.GetUser(f.Friend);
+                    var friendModelList = GetFriendships();
+                    var requesterModelList = GetRequests();
+                    var model = new FriendshipModel { Friends = friendModelList, FriendRequests = requesterModelList };
+                    return View(model);
+                }
+                catch (Exception e)
+                {
+                    var model = new ErrorModel { Exception = e };
+                    return RedirectToAction("Index", "Error", model);
+                }
+            }
+            return RedirectToAction("Index", "Profile");
+        }
+
+        public IList<ProfileModel> GetFriendships()
+        {
+            List<ProfileModel> friendModelList = new List<ProfileModel>();
+            var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+            var friendShipList = _friendshipRepository.GetFriendships(_userID);
+
+            UserAccount friend;
+            foreach (var f in friendShipList)
+            {
+                if (f.User == _userID)
+                {
+                    friend = _userRepository.GetUser(f.Friend);
                     friendModelList.Add(friend.MapProfileModel());
                 }
                 else
                 {
-                    var friend = _userRepository.GetUser(f.User);
+                    friend = _userRepository.GetUser(f.User);
                     friendModelList.Add(friend.MapProfileModel());
                 }
             }
-
-            var model = new FriendsModel { Friends = friendModelList };
-                        
-            return View(model);
+            return friendModelList;
         }
+
+        public IList<ProfileModel> GetRequests()
+        {
+            var requesterModelList = new List<ProfileModel>();
+            var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+            var friendRequestList = _friendshipRepository.GetFriendRequests(_userID);
+
+            UserAccount sender;
+            foreach (var f in friendRequestList)
+            {
+                sender = _userRepository.GetUser(f.Sender);
+                requesterModelList.Add(sender.MapProfileModel());
+            }
+            return requesterModelList;
+        }
+        #endregion
+
+        #region Set/Update
+        public ActionResult SendRequest(string friendUsername)
+        {
+            var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+            var friendID = _userRepository.GetUser(friendUsername).UserAccountID;
+            _friendshipRepository.AddRequest(_userID, friendID);
+
+            return RedirectToAction("Index", "Profile", new { username = friendUsername});
+        }
+
+        public ActionResult AcceptRequest(int senderID)
+        {
+            var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+            _friendshipRepository.AcceptRequest(senderID, _userID);
+            return View();
+        }
+        #endregion
+       
     }
 }

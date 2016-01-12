@@ -1,0 +1,13 @@
+﻿@Scripts.Render("~/bundles/jquery");
+
+$.getJSON('/api/Message/GetMessages', function(data) {
+    $.each(data, function (key, value) {
+        $('#messages').append('<div class="message">
+    ');
+    $('#messages').append('<p>' + value + '</p>');
+    $('#messages').append('<br />');
+    $('#messages').append('<p>' + value + '</p>');
+    $('#messages').append('
+</div>');
+    })
+});
