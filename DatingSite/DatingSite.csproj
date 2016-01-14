@@ -214,11 +214,12 @@
     <Content Include="Views\Profile\_ListMessages.cshtml" />
     <Content Include="Views\Friendship\Index.cshtml" />
     <Content Include="Views\Friendship\_FriendRequests.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\ProfilePictures\" />
+    <Folder Include="Global\" />
     <Folder Include="Views\Authorize\" />
-    <Folder Include="Views\Error\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>
   <ItemGroup>

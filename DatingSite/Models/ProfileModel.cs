@@ -46,7 +46,8 @@ namespace DatingSite.Models
         public bool Searchable { get; set; }
         public bool PendingFriendRequest { get; set; }
         public bool IsFriend { get; set; }
-        
+        public int RequestCount { get; set; }
+
         #region selection enums
 
 

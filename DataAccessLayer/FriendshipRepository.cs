@@ -8,7 +8,16 @@ namespace DataAccessLayer
 {
     public class FriendshipRepository
     {
+        //TODO: Rewrite this class and FriendshipController so that all methods take string username and fetch ID in same context.
         #region Get
+        public int RequestCount(int userID)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                return context.FriendRequest.Where(x => x.Reciever == userID).Count();
+            }
+        }
+
         public IList<Friendship> GetFriendships(int userAccountID)
         {
             using (var context = new OnlineDatingDBEntities())
@@ -68,13 +77,23 @@ namespace DataAccessLayer
         {
             using(var context = new OnlineDatingDBEntities())
             {
-                var newRequest = new FriendRequest
+                //Looks in Friendship and FriendRequest for any combination of int sender and int reciever.
+                if(context.Friendship.Any(x => x.User == sender && x.Friend == reciever || x.User == reciever && x.Friend == sender
+                || context.FriendRequest.Any(y => y.Sender == sender && y.Reciever == reciever || y.Sender == reciever && y.Reciever == sender)))
                 {
-                    Sender = sender,
-                    Reciever = reciever
-                };
-                context.FriendRequest.Add(newRequest);
-                context.SaveChanges();
+                    throw new Exception("Already requested or friends");
+                }
+                else
+                {
+                    var newRequest = new FriendRequest
+                    {
+                        Sender = sender,
+                        Reciever = reciever
+                    };
+                    context.FriendRequest.Add(newRequest);
+                    context.SaveChanges();
+                }
+                
             }
         }
 
@@ -82,21 +101,29 @@ namespace DataAccessLayer
         {
             using (var context = new OnlineDatingDBEntities())
             {
-                var newFriendship = new Friendship
+                //Looks in Friendship for any combination of int sender and int reciever.
+                if (context.Friendship.Any(x => x.User == user1 && x.Friend == user2 || x.User == user2 && x.Friend == user1))
                 {
-                    User = user1,
-                    Friend = user2,
-                    StartDate = DateTime.Now
-                };
+                    throw new Exception("Already friends");
+                }
+                else
+                {
+                    var newFriendship = new Friendship
+                    {
+                        User = user1,
+                        Friend = user2,
+                        StartDate = DateTime.Now
+                    };
 
-                var request = context.FriendRequest.First
-                (
-                    x => x.Sender == user1 && x.Reciever == user2
-                );
+                    var request = context.FriendRequest.First
+                    (
+                        x => x.Sender == user1 && x.Reciever == user2
+                    );
 
-                context.Friendship.Add(newFriendship);
-                context.FriendRequest.Remove(request);
-                context.SaveChanges();
+                    context.Friendship.Add(newFriendship);
+                    context.FriendRequest.Remove(request);
+                    context.SaveChanges(); ;
+                }
             }
         }
         #endregion

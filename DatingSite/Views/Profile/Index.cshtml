@@ -47,12 +47,16 @@ else
                 {
                 <input type="submit" name="addFriend" value="Requested" disabled="disabled"/>
                 }
+            else if (Model.IsFriend)
+            {
+                <input type="hidden" name="addFriend" value="Add friend" />
+            }
                 else
                 {
                 <input type="submit" name="addFriend" value="Add friend"/>
                 }
             }
-        </div>
+    </div>
 
     <div class="profile-info-section">
         <h3>Personal information</h3>
@@ -73,6 +77,6 @@ else
     </div>
     <div id="messagePartial">
         @Html.Partial("_PostMessage")
-    </div>
-}
+        </div>
+    }
 

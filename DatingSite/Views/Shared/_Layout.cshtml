@@ -1,4 +1,7 @@
 ﻿@using DatingSite.Models
+@{ 
+    var user = Session["User"] as ProfileModel;
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,20 +25,42 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("My Friends", "Index", "Friendship")</li>
-                    <li>@Html.ActionLink("My Profile", "Index", "Profile", new RouteValueDictionary(new {username = User.Identity.Name}), null)</li>
+                    
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (user == null)
+                        {
+                            user = new ProfileModel
+                            {
+                                RequestCount = 0
+                            };
+                        }
+
+                        var linkText = "Friends";
+                        if (user.RequestCount == 1)
+                        {
+                            linkText = "1 request pending";
+                        }
+                        else if(user.RequestCount > 1)
+                        {
+                            linkText = user.RequestCount + " requests pending";
+                        }
+
+                        <li>@Html.ActionLink(linkText, "Index", "Friendship")</li>
+                        <li>@Html.ActionLink("My Profile", "Index", "Profile", new RouteValueDictionary(new { username = User.Identity.Name }), null)</li>
+                    }
                 </ul>
                 @if (User.Identity.IsAuthenticated)
                 {
-                <div id="searchField" style="margin-right: 5px;">
-                    @Html.Partial("_SearchUser");
-                </div>
+                    <div id="searchField" style="margin-right: 5px;">
+                        @Html.Partial("_SearchUser");
+                    </div>
                 }
                 else
                 {
                 <div></div>
                 }
-                <div id="loginField" style="margin-top: 10px; Margin-left: 50px;">
+                <div id="menu" style="margin-top: 10px; Margin-left: 50px;">
                     @if (User.Identity.IsAuthenticated)
                     {
                         @Html.Partial("_Logout")
@@ -45,6 +70,7 @@
                         @Html.Partial("_Login")
                     }
                 </div>
+
             </div>
         </div>
     </div>
