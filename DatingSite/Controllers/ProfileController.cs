@@ -32,6 +32,7 @@ namespace DatingSite.Controllers
             {
                 var userAccount = _userRepository.GetUser(username);
                 var profileModel = userAccount.MapProfileModel();
+                profileModel.RequestCount = _friendshipRepository.RequestCount(profileModel.UserAccountID);
 
                 if (profileModel.Username != User.Identity.Name)
                 {
@@ -46,7 +47,7 @@ namespace DatingSite.Controllers
                     if (_friendshipRepository.ExistingFriendship(userID, friendID))
                         profileModel.IsFriend = true;
                     else
-                        profileModel.IsFriend = true;
+                        profileModel.IsFriend = false;
 
                 }
                 return View(profileModel);
@@ -55,7 +56,7 @@ namespace DatingSite.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }      
-        }
+       }
 
         [HttpPost]
         public ActionResult UpdateUser(ProfileModel profileToUpdate)

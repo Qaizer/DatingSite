@@ -7,16 +7,19 @@ using System.Web.Security;
 using DataAccessLayer;
 using System.Web.Routing;
 using DatingSite.Models;
+using DatingSite.Extensions;
 
 namespace DatingSite.Controllers
 {
     public class AccountController : Controller
     {
         readonly UserRepository _userRepository;
+        readonly FriendshipRepository _friendshipRepository;
 
         public AccountController()
         {
             _userRepository = new UserRepository();
+            _friendshipRepository = new FriendshipRepository();
         }
 
         public ActionResult Login(string username, string password)
@@ -24,7 +27,13 @@ namespace DatingSite.Controllers
             if (_userRepository.UserExists(username, password))
             {
                 FormsAuthentication.SetAuthCookie(username, false);
-                return RedirectToAction("Index", "Profile", new RouteValueDictionary(new { username }));
+
+                var user = _userRepository.GetUser(username).MapProfileModel();
+                user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID);
+
+                Session["User"] = user;
+
+                return RedirectToAction("Index", "Profile", new RouteValueDictionary(new { username = user.Username }));
             }
             return RedirectToAction("Index", "Home");
         }

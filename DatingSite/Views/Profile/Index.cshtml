@@ -43,16 +43,20 @@ else
         {
             <input type="hidden" name="friendUsername" value="@Model.Username" />
 
-                if (Model.PendingFriendRequest)
-                {
+            if (Model.PendingFriendRequest)
+            {
                 <input type="submit" name="addFriend" value="Requested" disabled="disabled"/>
-                }
-                else
-                {
+            }
+            else if (Model.IsFriend)
+            {
+                <input type="hidden" name="addFriend" value="Add friend" />
+            }
+            else
+            {
                 <input type="submit" name="addFriend" value="Add friend"/>
-                }
             }
         }
+    }
     </div>
 
     <div class="profile-info-section">
