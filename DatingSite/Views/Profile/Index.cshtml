@@ -7,7 +7,7 @@
 
 @if (User.Identity.Name == Model.Username)
 {
-    <h2>@User.Identity.Name</h2>
+    <h2>@Model.Username</h2>
 
     <div id="ProfilePictureIndex">
         <img src="~/Content/ProfilePictures/@Model.ImagePath" style="width: 200px; height: 250px;" alt="Profile Picture"/>
@@ -52,8 +52,7 @@ else
                 <input type="submit" name="addFriend" value="Add friend"/>
                 }
             }
-        }
-    </div>
+        </div>
 
     <div class="profile-info-section">
         <h3>Personal information</h3>
@@ -72,15 +71,8 @@ else
         <p>Haircolor: @Model.Haircolor</p>
         <p>Origin: @Model.Origin</p>
     </div>
-
-    @(Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", Url = "/Controllers/ApiControllers/MessageController" }))
-    {
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="text" name="value" value="" />
-                <input type="submit" value="Send" />
-            </div>
-        </div>
-    }
+    <div id="messagePartial">
+        @Html.Partial("_PostMessage")
+    </div>
 }
 

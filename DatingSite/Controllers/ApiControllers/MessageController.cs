@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Routing;
-using System.Web.Mvc;
-using DataAccessLayer;
+﻿using DataAccessLayer;
+using DatingSite.Extensions;
 using DatingSite.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Http;
+using System.Web.Http.Results;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DatingSite.Controllers.ApiControllers
 {
@@ -42,21 +42,24 @@ namespace DatingSite.Controllers.ApiControllers
         }
 
         [System.Web.Http.HttpPost]
-        public void PostMessage([FromBody]string reciever, [FromBody]string message)
+        public JsonResult<string> PostMessage(MessageModel message)
         {
             try
             {
-                var sender = User.Identity.Name;
-                var senderId = _userRepository.GetUser(sender).UserAccountID;
-                var recieverId = _userRepository.GetUser(reciever).UserAccountID;
+                var senderId = _userRepository.GetUser(message.SenderUsername).UserAccountID;
+                var recieverId = _userRepository.GetUser(message.RecieverUsername).UserAccountID;
 
-                _messageRepository.AddMessage(senderId, recieverId, message);
+                if (message.Text != null && message.Text.Length < 250)
+                {
+                    _messageRepository.AddMessage(senderId, recieverId, message.Text);
+                }
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.InnerException.Message);
             }
+            return Json("'Success':'true'");
         }
     }
 }

@@ -1,11 +1,28 @@
 ﻿@model DatingSite.Models.ProfileModel
-@Scripts.Render("~/bundles/jquery")
 
-@using (Ajax.BeginForm(new AjaxOptions {Url = "~/api/Message/PostMessage", HttpMethod = "POST"}))
-{
-    <input type="hidden" name="reciever" value='@Model.Username' />
-    <input type="text" name="message" value="Enter a message"/>
 
-    <input type="submit" value="Send" />
-}
- 
+ @Scripts.Render("~/bundles/jquery");
+<script>
+    $('#sendMsg').click(function() {
+
+        var data = {
+            recieverUsername: $('@Model.Username'),
+            senderUsername: $('@User.Identity.Name'),
+            Text: $('#textField').val().trim(),
+            TimeStamp: $.now()
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/api/Message/PostMessage",
+            data: data,
+            success: function(d) {
+                if (d.success === true) {
+                    location.reload();
+                }
+            }})});</script>
+
+<div id="messageForm">
+    <input type="text" name="message" value="Enter a message" id="textField"/>
+    <button id="sendMsg">Send</button>
+</div>

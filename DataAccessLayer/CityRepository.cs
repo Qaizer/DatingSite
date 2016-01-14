@@ -10,13 +10,10 @@ namespace DataAccessLayer
     {
         public List<City> GetAllCities()
         {
-            List<City> cities = new List<City>();
+            var cities = new List<City>();
             using (var context = new OnlineDatingDBEntities())
             {
-                foreach(City c in context.City)
-                {
-                    cities.Add(c);
-                }
+                cities.AddRange(context.City);
             }
             return cities;
 
