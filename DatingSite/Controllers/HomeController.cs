@@ -23,15 +23,22 @@ namespace DatingSite.Controllers
         {
             if (!ModelState.IsValid) return View();
             var amount = User.Identity.IsAuthenticated ? 5 : 4;
-            var userList = _userRepository.GetRandomUsers(amount);
-            IList<ProfileModel> profileModels = userList.Select(userAccount => userAccount.MapProfileModel()).ToList();
-
-            return View(profileModels);
+            try
+            {
+                var userList = _userRepository.GetRandomUsers(amount);
+                IList<ProfileModel> profileModels = userList.Select(userAccount => userAccount.MapProfileModel()).ToList();
+                return View(profileModels);
+            }
+            catch(Exception e)
+            {
+                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+            }
+            
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "What are you doing? Go out, see the sun and meet real people. Laugh, Love, Live! <3";
 
             return View();
         }

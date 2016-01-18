@@ -23,12 +23,18 @@ namespace DatingSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = new SearchModel() {SearchResult = _userRepository.SearchUser(searchString)};
+                try
+                {
+                    var result = new SearchModel() { SearchResult = _userRepository.SearchUser(searchString) };
 
-                return View(result);
+                    return View(result);
+                }
+                catch(Exception e)
+                {
+                    return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                }
             }
             return View();
-
         }
     }
 }

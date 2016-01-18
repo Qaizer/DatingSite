@@ -8,15 +8,12 @@ namespace DataAccessLayer
 {
     public class CityRepository
     {
-        public List<City> GetAllCities()
+        public IEnumerable<City> GetAll()
         {
-            var cities = new List<City>();
             using (var context = new OnlineDatingDBEntities())
             {
-                cities.AddRange(context.City);
+                return context.City.ToList();
             }
-            return cities;
-
         }
     }
 }

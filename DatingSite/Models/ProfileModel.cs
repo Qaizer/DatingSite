@@ -29,7 +29,6 @@ namespace DatingSite.Models
         public string Email { get; set; }
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; } 
-        public City City { get; set;}
         public string ImagePath { get; set; }
         public int Length { get; set; }
         public int Weight { get; set; }
@@ -41,6 +40,10 @@ namespace DatingSite.Models
         public string Occupation { get; set; }
         public string Education { get; set; }
         public string Branch { get; set; }
+
+        public CityModel City { get; set; }
+        public List<CityModel> CityList { get; set; }
+
 
         [Display(Name = "Searchable")]
         public bool Searchable { get; set; }

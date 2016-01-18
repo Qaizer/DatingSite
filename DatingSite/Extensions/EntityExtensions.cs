@@ -12,21 +12,33 @@ namespace DatingSite.Extensions
     {
         public static ProfileModel MapProfileModel(this UserAccount user)
         {
-            return new ProfileModel
+            var profileModel = new ProfileModel
             {
                 UserAccountID = user.UserAccountID,
                 Username = user.Username,
                 Password = user.Password,
-                ImagePath = user.ImagePath,
                 Email = user.Email,
-                Build = user.Build,
-                Eyecolor = user.Eyecolor,
-                Haircolor = user.Haircolor,
-                Origin = user.Origin,
-                CivilStatus = user.Civil_Status,
-                Occupation = user.Occupation,
-                Education = user.Education,
-                Branch = user.Branch 
+            };
+
+            profileModel.ImagePath = user.ImagePath;
+            profileModel.Build = (user.Build == null) ? "Unspecified" : user.Build;
+            profileModel.Eyecolor = (user.Eyecolor == null) ? "Unspecified" : user.Eyecolor;
+            profileModel.Haircolor = (user.Haircolor == null) ? "Unspecified" : user.Haircolor;
+            profileModel.Origin = (user.Origin == null) ? "Unspecified" : user.Origin;
+            profileModel.CivilStatus = (user.Civil_Status == null) ? "Unspecified" : user.Civil_Status;
+            profileModel.Occupation = (user.Occupation == null) ? "Unspecified" : user.Occupation;
+            profileModel.Education = (user.Education == null) ? "Unspecified" : user.Education;
+            profileModel.Branch = (user.Branch == null) ? "Unspecified" : user.Branch;
+
+            return profileModel; 
+        }
+
+        public static CityModel MapCityModel(this City city)
+        {
+            return new CityModel
+            {
+                CityID = city.CityID,
+                Name = city.Name
             };
         }
     }

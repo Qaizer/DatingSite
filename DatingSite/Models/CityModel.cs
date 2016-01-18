@@ -7,5 +7,7 @@ namespace DatingSite.Models
 {
     public class CityModel
     {
+        public int CityID { get; set; }
+        public string Name { get; set; }
     }
 }

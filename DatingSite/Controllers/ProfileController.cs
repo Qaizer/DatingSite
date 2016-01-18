@@ -17,12 +17,13 @@ namespace DatingSite.Controllers
     {
         UserRepository _userRepository;
         FriendshipRepository _friendshipRepository;
-
+        CityRepository _cityRepository;
 
         public ProfileController()
         {
             _userRepository = new UserRepository();
             _friendshipRepository = new FriendshipRepository();
+            _cityRepository = new CityRepository();
         }
 
         // GET: Profile
@@ -30,27 +31,36 @@ namespace DatingSite.Controllers
         {
             if (username != null)
             {
-                var userAccount = _userRepository.GetUser(username);
-                var profileModel = userAccount.MapProfileModel();
-                profileModel.RequestCount = _friendshipRepository.RequestCount(profileModel.UserAccountID);
+                try {
+                    var userAccount = _userRepository.GetUser(username);
+                    var profileModel = userAccount.MapProfileModel();
+                    profileModel.RequestCount = _friendshipRepository.RequestCount(profileModel.UserAccountID);
 
-                if (profileModel.Username != User.Identity.Name)
-                {
-                    var userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
-                    var friendID = profileModel.UserAccountID;
+                    var cities = _cityRepository.GetAll();
+                    profileModel.CityList = cities.Select(x => x.MapCityModel()).ToList();
 
-                    if (_friendshipRepository.ExistingRequest(userID, friendID))
-                        profileModel.PendingFriendRequest = true;
-                    else
-                        profileModel.PendingFriendRequest = false;
+                    if (profileModel.Username != User.Identity.Name)
+                    {
+                        var userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+                        var friendID = profileModel.UserAccountID;
 
-                    if (_friendshipRepository.ExistingFriendship(userID, friendID))
-                        profileModel.IsFriend = true;
-                    else
-                        profileModel.IsFriend = false;
+                        if (_friendshipRepository.ExistingRequest(userID, friendID))
+                            profileModel.PendingFriendRequest = true;
+                        else
+                            profileModel.PendingFriendRequest = false;
 
+                        if (_friendshipRepository.ExistingFriendship(userID, friendID))
+                            profileModel.IsFriend = true;
+                        else
+                            profileModel.IsFriend = false;
+
+                    }
+                    return View(profileModel);
                 }
-                return View(profileModel);
+                catch (Exception e)
+                {
+                    return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                }
             }
             else
             {
@@ -69,14 +79,15 @@ namespace DatingSite.Controllers
                             User.Identity.Name,
                             profileToUpdate.Email,
                             profileToUpdate.Searchable
+                            //City = profileToUpdate.City om tid finns.
                             );
-                        //City = profileToUpdate.City om tid finns.
-                    }
+
+                    return RedirectToAction("Index", "Profile");
+                }
                 catch (Exception e)
                 {
                     return RedirectToAction("Index", "Error", new ErrorModel { Exception = e});
                 }
-                return RedirectToAction("Index", "Profile");
             }
             return RedirectToAction("Index", "Profile");
         }
@@ -85,21 +96,28 @@ namespace DatingSite.Controllers
         public ActionResult UploadPhoto(HttpPostedFileBase file)
        {
             if (file == null) return RedirectToAction("Index", "Profile");
-            var user = User.Identity.Name;
-            var oldPic = _userRepository.GetUser(user).ImagePath;
 
-            if (oldPic != null)
-            {
-                System.IO.File.Delete(oldPic);
+            try {
+                var user = User.Identity.Name;
+                var oldPic = _userRepository.GetUser(user).ImagePath;
+
+                if (oldPic != null)
+                {
+                    System.IO.File.Delete(oldPic);
+                }
+
+                var pic = Path.GetFileName(file.FileName);
+                var path = Path.Combine(
+                    Server.MapPath("~/Content/ProfilePictures"), pic);
+
+                file.SaveAs(path);
+                _userRepository.SaveImagePath(user, pic);
+                return RedirectToAction("Index", "Profile");
             }
-
-            var pic = Path.GetFileName(file.FileName);
-            var path = Path.Combine(
-                Server.MapPath("~/Content/ProfilePictures"), pic);
-
-            file.SaveAs(path);
-            _userRepository.SaveImagePath(user, pic);
-            return RedirectToAction("Index", "Profile");
+            catch(Exception e)
+            {
+                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+            }
         }
     }
 }

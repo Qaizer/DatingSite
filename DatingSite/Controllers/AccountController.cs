@@ -24,25 +24,39 @@ namespace DatingSite.Controllers
 
         public ActionResult Login(string username, string password)
         {
-            if (_userRepository.UserExists(username, password))
+            try
             {
-                FormsAuthentication.SetAuthCookie(username, false);
+                if (_userRepository.UserExists(username, password))
+                {
+                    FormsAuthentication.SetAuthCookie(username, false);
 
-                var user = _userRepository.GetUser(username).MapProfileModel();
-                user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID);
+                    var user = _userRepository.GetUser(username).MapProfileModel();
+                    user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID);
 
-                Session["User"] = user;
+                    Session["User"] = user;
 
-                return RedirectToAction("Index", "Profile", new RouteValueDictionary(new { username = user.Username }));
+                    return RedirectToAction("Index", "Profile", new RouteValueDictionary(new { username = user.Username }));
+                }
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+            }
         }
 
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
-            Session.Abandon();
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                FormsAuthentication.SignOut();
+                Session.Abandon();
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+            }
         }
 
         public ActionResult Register()
@@ -53,26 +67,26 @@ namespace DatingSite.Controllers
         [HttpPost]
         public ActionResult Register(AccountModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (_userRepository.UsernameExists(model.Username))
+                try
                 {
-                    ModelState.AddModelError("Username", "This username already exists, please try another.");
-                }
-                if (_userRepository.EmailExists(model.Email))
-                {
-                    ModelState.AddModelError("Email", "This email already exists, please try another.");
-                }
+                    if (_userRepository.UsernameExists(model.Username))
+                    {
+                        ModelState.AddModelError("Username", "This username already exists, please try another.");
+                    }
+                    if (_userRepository.EmailExists(model.Email))
+                    {
+                        ModelState.AddModelError("Email", "This email already exists, please try another.");
+                    }
 
-                if (ModelState.IsValid)
-                {
                     _userRepository.Add(model.Username, model.Password, model.Email);
                     return RedirectToAction("Index", "Home");
                 }
-            }
-            catch(Exception e)
-            {
-                return RedirectToAction("Index", "Error", e);
+                catch (Exception e)
+                {
+                    return RedirectToAction("Index", "Error", new ErrorModel { Exception = e});
+                }
             }
             return View(model);
         }
