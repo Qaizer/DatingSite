@@ -4,9 +4,10 @@
     ViewBag.Title = "Register";
 }
 
-<h2>Register</h2>
+<h2>@RegisterStrings.Title</h2>
 
-
+@Html.ActionLink("English", "SetLanguage", "Account", new { languageAbbrevation = "en"}, null)
+@Html.ActionLink("Svenska", "SetLanguage", "Account", new { languageAbbrevation = "sv" }, null)
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
@@ -51,7 +52,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Sign up!" class="btn btn-default" />
+                <input type="submit" value="@RegisterStrings.Confirm" class="btn btn-default" />
             </div>
         </div>
     </div>

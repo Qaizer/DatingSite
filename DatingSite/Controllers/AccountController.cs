@@ -8,6 +8,8 @@ using DataAccessLayer;
 using System.Web.Routing;
 using DatingSite.Models;
 using DatingSite.Extensions;
+using System.Threading;
+using System.Globalization;
 
 namespace DatingSite.Controllers
 {
@@ -89,6 +91,21 @@ namespace DatingSite.Controllers
                 }
             }
             return View(model);
+        }
+
+        public ActionResult SetLanguage(string languageAbbrevation)
+        {
+            if(languageAbbrevation != null)
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(languageAbbrevation);
+                Thread.CurrentThread.CurrentCulture = new CultureInfo(languageAbbrevation);
+            }
+
+            HttpCookie cookie = new HttpCookie("Language");
+            cookie.Value = languageAbbrevation;
+            Response.Cookies.Add(cookie);
+
+            return View("Register");
         }
     }
 }

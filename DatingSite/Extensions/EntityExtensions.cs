@@ -12,6 +12,8 @@ namespace DatingSite.Extensions
     {
         public static ProfileModel MapProfileModel(this UserAccount user)
         {
+
+            //Nytt objekt av Profilemodel med NOT NULL data.
             var profileModel = new ProfileModel
             {
                 UserAccountID = user.UserAccountID,
@@ -20,6 +22,7 @@ namespace DatingSite.Extensions
                 Email = user.Email,
             };
 
+            //Sätter all saknad data till "Unspecified".
             profileModel.ImagePath = user.ImagePath;
             profileModel.Build = (user.Build == null) ? "Unspecified" : user.Build;
             profileModel.Eyecolor = (user.Eyecolor == null) ? "Unspecified" : user.Eyecolor;

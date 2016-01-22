@@ -4,32 +4,51 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using DataAccessLayer;
+using DatingSite.Resources;
 
 namespace DatingSite.Models
 {
     public class AccountModel
     {
-        [Required(ErrorMessage = "Please choose a username.")]
-        [StringLength(20, ErrorMessage = "Username needs to be between {0} and {2} characters long", MinimumLength = 6)]
-        [Display(Name = "Username")]
-        public string Username { get; set; }
+        //Username
+        [Required(
+            ErrorMessageResourceName = "UsernameReqError", 
+            ErrorMessageResourceType = typeof(RegisterStrings))]
+        [StringLength(20,
+            ErrorMessageResourceName = "UsernameFormatError",
+            ErrorMessageResourceType = typeof(RegisterStrings),
+            MinimumLength = 3)]
+        [Display(Name = "Username", ResourceType = typeof(RegisterStrings))]
+        public string Username { get; set; }    
 
-        [Required(ErrorMessage = "Please choose a password.")]
+        //Password
+        [Required(
+            ErrorMessageResourceName = "ConfirmPasswordReqError",
+            ErrorMessageResourceType = typeof(RegisterStrings))]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(RegisterStrings))]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please confirm password.")]
+        //Confirm Password
+        [Required(
+            ErrorMessageResourceName = "ConfirmPasswordReqError",
+            ErrorMessageResourceType = typeof(RegisterStrings))]
         [DataType(DataType.Password)]
-        [Compare("Password")]
-        [Display(Name = "Confirm Password")]
+        [Compare("Password",
+            ErrorMessageResourceName = "ConfirmPasswordReqError",
+            ErrorMessageResourceType = typeof(RegisterStrings))]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(RegisterStrings))]
         public string ConfirmPassword { get; set; }
 
-        [Required(ErrorMessage = "Please enter a valid email adress.")]
+        //Email address
+        [Required(
+            ErrorMessageResourceName = "EmailReqError",
+            ErrorMessageResourceType = typeof(RegisterStrings))]
         [DataType(DataType.EmailAddress)]
-        [Display(Name = "Email")]
-        [StringLength(30, ErrorMessage = "Email cannot be shorter than {0} or longer than {2}", MinimumLength = 6)]
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [EmailAddress(
+            ErrorMessageResourceName = "EmailFormatError",
+            ErrorMessageResourceType = typeof(RegisterStrings))]
+        [Display(Name = "Email", ResourceType = typeof(RegisterStrings))]
         public string Email { get; set; }
     }
 }
