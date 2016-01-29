@@ -4,7 +4,25 @@
 <body>
     <script>
         $(function () {
-            $('#sendMsg').click(alert("Hej"))
+            $('#sendMsg').on('click', function () {
+                var data = {
+                    RecieverUsername: '@Model.Username',
+                    SenderUsername: '@User.Identity.Name',
+                    Text: $('#textField').val().trim(),
+                    TimeStamp: $.now()
+                };
+
+                $.ajax({
+                    type: "Post",
+                    url: "/api/Message/PostMessage",
+                    data: JSON.stringify(data),
+                    datatype : 'json',
+                    contentType: "application/json; charset = utf-8",
+                    success: function (d) {
+                        location.reload();
+                    }
+                });
+            });
         });
     </script>
 
@@ -38,4 +56,4 @@
                     });
                     });
                     });
-@
+*@
