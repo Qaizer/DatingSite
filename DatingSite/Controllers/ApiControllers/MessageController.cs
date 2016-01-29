@@ -1,14 +1,10 @@
 ﻿using DataAccessLayer;
-using DatingSite.Extensions;
 using DatingSite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Results;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace DatingSite.Controllers.ApiControllers
 {
@@ -41,11 +37,11 @@ namespace DatingSite.Controllers.ApiControllers
 
         }
 
-        [System.Web.Http.HttpPost]
+        [HttpPost]
         public JsonResult<string> PostMessage(MessageModel message)
         {
             try
-            {
+            {     
                 var senderId = _userRepository.GetUser(message.SenderUsername).UserAccountID;
                 var recieverId = _userRepository.GetUser(message.RecieverUsername).UserAccountID;
 
