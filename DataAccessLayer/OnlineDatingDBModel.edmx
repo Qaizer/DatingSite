@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="OnlineDatingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="OnlineDatingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="CityID" />
@@ -38,7 +38,7 @@
           <Property Name="Sender" Type="int" Nullable="false" />
           <Property Name="Reciever" Type="int" Nullable="false" />
           <Property Name="Text" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityType Name="UserAccount">
           <Key>
@@ -52,8 +52,8 @@
           <Property Name="Birthdate" Type="datetime" />
           <Property Name="ImagePath" Type="nvarchar" MaxLength="255" />
           <Property Name="City" Type="int" />
-          <Property Name="Length" Type="int" />
-          <Property Name="Weight" Type="int" />
+          <Property Name="Length" Type="nvarchar" MaxLength="3" />
+          <Property Name="Weight" Type="nvarchar" MaxLength="3" />
           <Property Name="Build" Type="nvarchar" MaxLength="50" />
           <Property Name="Eyecolor" Type="nvarchar" MaxLength="50" />
           <Property Name="Haircolor" Type="nvarchar" MaxLength="50" />
@@ -64,7 +64,7 @@
           <Property Name="Branch" Type="nvarchar" MaxLength="50" />
           <Property Name="Searchable" Type="bit" />
         </EntityType>
-        <Association Name="FK__FriendReq__Recie__276EDEB3">
+        <Association Name="FK__FriendReq__Recie__2B3F6F97">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -76,7 +76,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__FriendReq__Sende__267ABA7A">
+        <Association Name="FK__FriendReq__Sende__2A4B4B5E">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="FriendRequest" Type="Self.FriendRequest" Multiplicity="*" />
           <ReferentialConstraint>
@@ -88,7 +88,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Friendshi__Frien__2C3393D0">
+        <Association Name="FK__Friendshi__Frien__239E4DCF">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="Friendship" Type="Self.Friendship" Multiplicity="*" />
           <ReferentialConstraint>
@@ -100,7 +100,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Friendship__User__2B3F6F97">
+        <Association Name="FK__Friendship__User__22AA2996">
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
           <End Role="Friendship" Type="Self.Friendship" Multiplicity="*" />
           <ReferentialConstraint>
@@ -136,7 +136,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserAccoun__City__21B6055D">
+        <Association Name="FK__UserAccoun__City__15502E78">
           <End Role="City" Type="Self.City" Multiplicity="0..1" />
           <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
           <ReferentialConstraint>
@@ -154,19 +154,19 @@
           <EntitySet Name="Friendship" EntityType="Self.Friendship" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__FriendReq__Recie__276EDEB3" Association="Self.FK__FriendReq__Recie__276EDEB3">
+          <AssociationSet Name="FK__FriendReq__Recie__2B3F6F97" Association="Self.FK__FriendReq__Recie__2B3F6F97">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="FriendRequest" EntitySet="FriendRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__FriendReq__Sende__267ABA7A" Association="Self.FK__FriendReq__Sende__267ABA7A">
+          <AssociationSet Name="FK__FriendReq__Sende__2A4B4B5E" Association="Self.FK__FriendReq__Sende__2A4B4B5E">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="FriendRequest" EntitySet="FriendRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK__Friendshi__Frien__2C3393D0" Association="Self.FK__Friendshi__Frien__2C3393D0">
+          <AssociationSet Name="FK__Friendshi__Frien__239E4DCF" Association="Self.FK__Friendshi__Frien__239E4DCF">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Friendship" EntitySet="Friendship" />
           </AssociationSet>
-          <AssociationSet Name="FK__Friendship__User__2B3F6F97" Association="Self.FK__Friendship__User__2B3F6F97">
+          <AssociationSet Name="FK__Friendship__User__22AA2996" Association="Self.FK__Friendship__User__22AA2996">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Friendship" EntitySet="Friendship" />
           </AssociationSet>
@@ -178,13 +178,12 @@
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserAccoun__City__21B6055D" Association="Self.FK__UserAccoun__City__21B6055D">
+          <AssociationSet Name="FK__UserAccoun__City__15502E78" Association="Self.FK__UserAccoun__City__15502E78">
             <End Role="City" EntitySet="City" />
             <End Role="UserAccount" EntitySet="UserAccount" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OnlineDatingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -226,7 +225,7 @@
           <Property Name="Sender" Type="Int32" Nullable="false" />
           <Property Name="Reciever" Type="Int32" Nullable="false" />
           <Property Name="Text" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="UserAccount" Relationship="Self.FK__Message__Recieve__4AB81AF0" FromRole="Message" ToRole="UserAccount" />
           <NavigationProperty Name="UserAccount1" Relationship="Self.FK__Message__Sender__49C3F6B7" FromRole="Message" ToRole="UserAccount" />
         </EntityType>
@@ -242,8 +241,8 @@
           <Property Name="Birthdate" Type="DateTime" Precision="3" />
           <Property Name="ImagePath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="Int32" />
-          <Property Name="Length" Type="Int32" />
-          <Property Name="Weight" Type="Int32" />
+          <Property Name="Length" Type="String" MaxLength="3" Unicode="true" FixedLength="false" />
+          <Property Name="Weight" Type="String" MaxLength="3" Unicode="true" FixedLength="false" />
           <Property Name="Build" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Eyecolor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Haircolor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />

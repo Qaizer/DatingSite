@@ -1,28 +1,38 @@
 ﻿@model DatingSite.Models.ProfileModel
 
+<!DOCTYPE html>
+<body>
+    <script>
+        
 
- @Scripts.Render("~/bundles/jquery");
-<script>
-    $('#sendMsg').click(function() {
 
-        var data = {
-            recieverUsername: $('@Model.Username'),
-            senderUsername: $('@User.Identity.Name'),
-            Text: $('#textField').val().trim(),
-            TimeStamp: $.now()
-        };
+        $(function () {
+            $('#sendMsg').click(function () {
+                var data = {
+                    recieverUsername: $('@Model.Username'),
+                    senderUsername: $('@User.Identity.Name'),
+                    Text: $('#textField').val().trim(),
+                    TimeStamp: $.now()
+                };
 
-        $.ajax({
-            type: "POST",
-            url: "/api/Message/PostMessage",
-            data: data,
-            success: function(d) {
-                if (d.success === true) {
-                    location.reload();
-                }
-            }})});</script>
+                $.ajax({
+                    type: "Post",
+                    url: "/api/Message/PostMessage",
+                    data: JSON.stringify(data),
+                    datatype: 'json',
+                    success: function (d) {
+                     location.reload();
+                    }
+                });
+            });
+        });
+    </script>
 
-<div id="messageForm">
-    <input type="text" name="message" value="Enter a message" id="textField"/>
-    <button id="sendMsg">Send</button>
-</div>
+    <form id="MessageForm" method="post">
+        <div id="PostForm">
+            <textarea id="textField" placeholder="Enter a message."></textarea>
+            <input id="sendMsg" type="button" value="Send" />
+        </div>
+
+    </form>
+</body>

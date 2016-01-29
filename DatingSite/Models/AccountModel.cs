@@ -23,7 +23,7 @@ namespace DatingSite.Models
 
         //Password
         [Required(
-            ErrorMessageResourceName = "ConfirmPasswordReqError",
+            ErrorMessageResourceName = "PasswordReqError",
             ErrorMessageResourceType = typeof(RegisterStrings))]
         [DataType(DataType.Password)]
         [Display(Name = "Password", ResourceType = typeof(RegisterStrings))]
@@ -35,7 +35,7 @@ namespace DatingSite.Models
             ErrorMessageResourceType = typeof(RegisterStrings))]
         [DataType(DataType.Password)]
         [Compare("Password",
-            ErrorMessageResourceName = "ConfirmPasswordReqError",
+            ErrorMessageResourceName = "ConfirmPasswordMatchError",
             ErrorMessageResourceType = typeof(RegisterStrings))]
         [Display(Name = "ConfirmPassword", ResourceType = typeof(RegisterStrings))]
         public string ConfirmPassword { get; set; }

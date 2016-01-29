@@ -33,8 +33,8 @@ namespace DataAccessLayer
         public Nullable<System.DateTime> Birthdate { get; set; }
         public string ImagePath { get; set; }
         public Nullable<int> City { get; set; }
-        public Nullable<int> Length { get; set; }
-        public Nullable<int> Weight { get; set; }
+        public string Length { get; set; }
+        public string Weight { get; set; }
         public string Build { get; set; }
         public string Eyecolor { get; set; }
         public string Haircolor { get; set; }

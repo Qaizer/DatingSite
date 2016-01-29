@@ -30,8 +30,8 @@ namespace DatingSite.Models
         public string Gender { get; set; }
         public DateTime BirthDate { get; set; } 
         public string ImagePath { get; set; }
-        public int Length { get; set; }
-        public int Weight { get; set; }
+        public string Length { get; set; }
+        public string Weight { get; set; }
         public string Build { get; set; }
         public string Eyecolor { get; set; }
         public string Haircolor { get; set; }

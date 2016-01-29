@@ -46,7 +46,17 @@ namespace DataAccessLayer
                     Username = username,
                     Password = password,
                     Email = email,
-                    Searchable = true
+                    Searchable = true,
+                    Length = "0",
+                    Weight = "0",
+                    Build = "Unspecified",
+                    Eyecolor = "Unspecified",
+                    Haircolor = "Unspecified",
+                    Origin = "Unspecified",
+                    Civil_Status = "Unspecified",
+                    Occupation = "Unspecified",
+                    Education = "Unspecified",
+                    Branch = "Unspecified",
                 };
                 context.UserAccount.Add(newUser);
                 context.SaveChanges();

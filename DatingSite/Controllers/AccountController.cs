@@ -98,14 +98,15 @@ namespace DatingSite.Controllers
             if(languageAbbrevation != null)
             {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(languageAbbrevation);
-                Thread.CurrentThread.CurrentCulture = new CultureInfo(languageAbbrevation);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageAbbrevation);
             }
 
             HttpCookie cookie = new HttpCookie("Language");
             cookie.Value = languageAbbrevation;
             Response.Cookies.Add(cookie);
 
-            return View("Register");
+            return RedirectToAction("Register");
+                
         }
     }
 }

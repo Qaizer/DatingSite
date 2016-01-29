@@ -20,20 +20,19 @@ namespace DatingSite.Extensions
                 Username = user.Username,
                 Password = user.Password,
                 Email = user.Email,
+                ImagePath = user.ImagePath,
+                Length = user.Length,
+                Weight = user.Weight,
+                Build = user.Build,
+                Eyecolor = user.Eyecolor,
+                Haircolor = user.Haircolor,
+                Origin = user.Origin,
+                CivilStatus = user.Civil_Status,
+                Occupation = user.Occupation,
+                Education = user.Education,
+                Branch = user.Branch
             };
-
-            //Sätter all saknad data till "Unspecified".
-            profileModel.ImagePath = user.ImagePath;
-            profileModel.Build = (user.Build == null) ? "Unspecified" : user.Build;
-            profileModel.Eyecolor = (user.Eyecolor == null) ? "Unspecified" : user.Eyecolor;
-            profileModel.Haircolor = (user.Haircolor == null) ? "Unspecified" : user.Haircolor;
-            profileModel.Origin = (user.Origin == null) ? "Unspecified" : user.Origin;
-            profileModel.CivilStatus = (user.Civil_Status == null) ? "Unspecified" : user.Civil_Status;
-            profileModel.Occupation = (user.Occupation == null) ? "Unspecified" : user.Occupation;
-            profileModel.Education = (user.Education == null) ? "Unspecified" : user.Education;
-            profileModel.Branch = (user.Branch == null) ? "Unspecified" : user.Branch;
-
-            return profileModel; 
+        return profileModel;
         }
 
         public static CityModel MapCityModel(this City city)
