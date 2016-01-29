@@ -3,28 +3,8 @@
 <!DOCTYPE html>
 <body>
     <script>
-        
-
-
         $(function () {
-            $('#sendMsg').click(function () {
-                var data = {
-                    recieverUsername: $('@Model.Username'),
-                    senderUsername: $('@User.Identity.Name'),
-                    Text: $('#textField').val().trim(),
-                    TimeStamp: $.now()
-                };
-
-                $.ajax({
-                    type: "Post",
-                    url: "/api/Message/PostMessage",
-                    data: JSON.stringify(data),
-                    datatype: 'json',
-                    success: function (d) {
-                     location.reload();
-                    }
-                });
-            });
+            $('#sendMsg').click(alert("Hej"))
         });
     </script>
 
@@ -36,3 +16,26 @@
 
     </form>
 </body>
+
+@*
+        $(function () {
+            $('#sendMsg').click(function () {
+                var data = {
+                    recieverUsername: $('@Model.Username'),
+                    senderUsername: $('@User.Identity.Name'),
+                    Text: $('#textField').val().trim(),
+                    TimeStamp: $.now()
+                    };
+
+                    $.ajax({
+                    type: "Post",
+                    url: "/api/Message/PostMessage",
+                    data: JSON.stringify(data),
+                    datatype: 'json',
+                    success: function (d) {
+                    location.reload();
+                    }
+                    });
+                    });
+                    });
+@
