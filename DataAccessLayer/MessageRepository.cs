@@ -8,6 +8,7 @@ namespace DataAccessLayer
 {
     public class MessageRepository
     {
+        //Lägger till avsändare, mottagare, text och tidpunkt i Message-tabellen
         public void AddMessage(int sender, int reciever, string text)
         {
             using (var context = new OnlineDatingDBEntities())
@@ -24,6 +25,7 @@ namespace DataAccessLayer
             }
         }
 
+        //Returnerar lista över alla meddelanden där angivet användarID är mottagare 
         public IList<Message> GetMessageList(int reciever)
         {
             using (var context = new OnlineDatingDBEntities())

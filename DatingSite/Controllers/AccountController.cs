@@ -32,8 +32,9 @@ namespace DatingSite.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(username, false);
 
-                    var user = _userRepository.GetUser(username).MapProfileModel();
-                    user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID);
+                    //Hämtar ett UserAccount, mappar till UserAccountModel och räknar vänförfrågningar
+                    var user = _userRepository.GetUser(username).MapProfileModel(); 
+                    user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID); 
 
                     Session["User"] = user;
 
@@ -73,6 +74,7 @@ namespace DatingSite.Controllers
             {
                 try
                 {
+                    //Validerar att användarnamn och email inte är upptagna
                     if (_userRepository.UsernameExists(model.Username))
                     {
                         ModelState.AddModelError("Username", "This username already exists, please try another.");
@@ -82,6 +84,7 @@ namespace DatingSite.Controllers
                         ModelState.AddModelError("Email", "This email already exists, please try another.");
                     }
 
+                    //Lägger till ny användare
                     _userRepository.Add(model.Username, model.Password, model.Email);
                     return RedirectToAction("Index", "Home");
                 }

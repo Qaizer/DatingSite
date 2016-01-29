@@ -8,6 +8,7 @@ namespace DataAccessLayer
 {
     public class CityRepository
     {
+        //Returnerar lista över alla tillgängliga stadsval i City-tabellen
         public IEnumerable<City> GetAll()
         {
             using (var context = new OnlineDatingDBEntities())

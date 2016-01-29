@@ -8,8 +8,8 @@ namespace DataAccessLayer
 {
     public class FriendshipRepository
     {
-        //TODO: Rewrite this class and FriendshipController so that all methods take string username and fetch ID in same context.
         #region Get
+        //Returnerar antal obesvarade friendRequests för ett angivet användarID
         public int RequestCount(int userID)
         {
             using (var context = new OnlineDatingDBEntities())
@@ -18,14 +18,16 @@ namespace DataAccessLayer
             }
         }
 
-        public IList<Friendship> GetFriendships(int userAccountID)
+        //Returnerar lista över alla Friendships för ett angivet användarID
+        public IList<Friendship> GetFriendships(int userID)
         {
             using (var context = new OnlineDatingDBEntities())
             {
-                var list = context.Friendship.Where(x => x.User == userAccountID).ToList();
-                var list2 = context.Friendship.Where(x => x.Friend == userAccountID).ToList();
+                var list = context.Friendship.Where(x => x.User == userID).ToList(); //Där userID finns i kolumnen User
+                var list2 = context.Friendship.Where(x => x.Friend == userID).ToList(); //Där userID finns i kolumnen Friend
 
-                foreach(var x in list2)
+                //Listorna slås ihop
+                foreach (var x in list2)
                 {
                     list.Add(x);
                 }
@@ -34,16 +36,18 @@ namespace DataAccessLayer
             }
         }
 
-        public IList<FriendRequest> GetFriendRequests(int userAccountID)
+        //Returnerar en lista över alla obesvarade FriendRequests för ett anvigvet användarID
+        public IList<FriendRequest> GetFriendRequests(int userID)
         {
             using (var context = new OnlineDatingDBEntities())
             {
-                return context.FriendRequest.Where(x => x.Reciever == userAccountID).ToList();
+                return context.FriendRequest.Where(x => x.Reciever == userID).ToList();
             }
         }
         #endregion
 
         #region Exists
+        //Returnerar true om två användare redan har en obesvarad request sinsemellan oavsett vem som skickade den.
         public bool ExistingRequest(int sender, int reciever)
         {
             using (var context = new OnlineDatingDBEntities())
@@ -57,7 +61,7 @@ namespace DataAccessLayer
             }
                 
         }
-
+        //Returnerar true om två användare redan har en obesvarad request sinsemellan oavsett vem som skickade requesten.
         public bool ExistingFriendship(int sender, int reciever)
         {
             using (var context = new OnlineDatingDBEntities())
@@ -73,12 +77,13 @@ namespace DataAccessLayer
         #endregion
 
         #region Add
+        //Lägger till avsändare och mottagare mellan angivna användare i FriendRequest-tabellen
         public void AddRequest(int sender, int reciever)
         {
             using(var context = new OnlineDatingDBEntities())
             {
-                //Looks in Friendship and FriendRequest for any combination of int sender and int reciever.
-                if(context.Friendship.Any(x => x.User == sender && x.Friend == reciever || x.User == reciever && x.Friend == sender
+                //Kastar exception om Friendship eller FriendRequest redan finns i någon kombination av sender och reciever     
+                if (context.Friendship.Any(x => x.User == sender && x.Friend == reciever || x.User == reciever && x.Friend == sender
                 || context.FriendRequest.Any(y => y.Sender == sender && y.Reciever == reciever || y.Sender == reciever && y.Reciever == sender)))
                 {
                     throw new Exception("Already requested or friends");
@@ -97,11 +102,15 @@ namespace DataAccessLayer
             }
         }
 
+        /*Lägger till relation mellan angivna användare i Friendship-tabellen.
+        Det UserAccountID som var Sender på FriendRequest blir User i Friendship, 
+        och det UserAccountID som var Reciever av FriendRequest blir Friend i Friendship
+        */
         public void AcceptRequest(int user1, int user2)
         {
             using (var context = new OnlineDatingDBEntities())
             {
-                //Looks in Friendship for any combination of int sender and int reciever.
+                //Kastar exception om Friendship redan finns i någon kombination av sender och reciever
                 if (context.Friendship.Any(x => x.User == user1 && x.Friend == user2 || x.User == user2 && x.Friend == user1))
                 {
                     throw new Exception("Already friends");
@@ -120,7 +129,7 @@ namespace DataAccessLayer
                         x => x.Sender == user1 && x.Reciever == user2
                     );
 
-                    context.Friendship.Add(newFriendship);
+                    context.Friendship.Add(newFriendship); 
                     context.FriendRequest.Remove(request);
                     context.SaveChanges(); ;
                 }
@@ -129,6 +138,8 @@ namespace DataAccessLayer
         #endregion
 
         #region Delete
+
+        //Tar bort två angedda användarIDn ur Friendship-tabellen
         public void DeleteFriendship(int user, int friend)
         {
             using (var context = new OnlineDatingDBEntities())
@@ -143,6 +154,7 @@ namespace DataAccessLayer
             }
         }
 
+        //Tar bort två angedda användarIDn ur FriendRequest-tabellen
         public void DeleteRequest(int sender, int reciever)
         {
             using (var context = new OnlineDatingDBEntities())
