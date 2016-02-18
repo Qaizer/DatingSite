@@ -5,6 +5,7 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    margin-top: auto;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -22,3 +23,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#page {
+    background-color: cornflowerblue;
+}
+
+.userinfo, .messages{
+    border: 5px, solid, white;
+}
+
+

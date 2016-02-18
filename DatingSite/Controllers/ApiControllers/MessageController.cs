@@ -20,20 +20,20 @@ namespace DatingSite.Controllers.ApiControllers
         }
 
         [System.Web.Http.HttpGet]
-        public IList<MessageModel> GetMessages()
+        public IList<MessageModel> GetMessages(string username)
         {
-            var reciever = _userRepository.GetUser(User.Identity.Name);
+            var reciever = _userRepository.GetUser(username);
 
             var messageReferenceList = _messageRepository.GetMessageList(reciever.UserAccountID);
 
             return (from m in messageReferenceList
-                let sender = _userRepository.GetUser(m.Sender)
-                select new MessageModel
-                {
-                    SenderUsername = sender.Username,
-                    Text = m.Text,
-                    TimeStamp = DateTime.Now //TODO: Ändra till m.TimeStamp
-                    }).ToList();   
+                    let sender = _userRepository.GetUser(m.Sender)
+                    select new MessageModel
+                    {
+                        MessageId = m.MessageID,
+                        SenderUsername = sender.Username,
+                        Text = m.Text
+                    }).ToList();
 
         }
 
@@ -41,7 +41,7 @@ namespace DatingSite.Controllers.ApiControllers
         public JsonResult<string> PostMessage(MessageModel message)
         {
             try
-            {     
+            {
                 var senderId = _userRepository.GetUser(message.SenderUsername).UserAccountID;
                 var recieverId = _userRepository.GetUser(message.RecieverUsername).UserAccountID;
 
@@ -50,7 +50,7 @@ namespace DatingSite.Controllers.ApiControllers
                     _messageRepository.AddMessage(senderId, recieverId, message.Text);
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.InnerException.Message);

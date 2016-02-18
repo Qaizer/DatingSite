@@ -7,6 +7,7 @@
 
 @if (User.Identity.Name == Model.Username)
 {
+
     <h2>@Model.Username</h2>
 
     <div id="ProfilePictureIndex">
@@ -21,9 +22,9 @@
     </div>
 
     <script>
-    $.getJSON('/api/Message/GetMessages', function(data) {
+        $.getJSON('/api/Message/GetMessages', { username: "@User.Identity.Name" }, function (data) {
         $.each(data, function(key, message) {
-            $('#messages').append('<div class="message">');
+            $('#messages').append('<div class="message" >');
             $('#messages').append('<p>' + message.SenderUsername + '</p>');
             $('#messages').append('<br />');
             $('#messages').append('<p>' + message.Text + '</p>');
@@ -44,15 +45,15 @@ else
 
                 if (Model.PendingFriendRequest)
                 {
-                <input type="submit" name="addFriend" value="Requested" disabled="disabled"/>
+                    <input type="submit" name="addFriend" value="Requested" disabled="disabled"/>
                 }
-            else if (Model.IsFriend)
-            {
-                <input type="hidden" name="addFriend" value="Add friend" />
-            }
+                else if (Model.IsFriend)
+                {
+                    <input type="hidden" name="addFriend" value="Add friend" />
+                }
                 else
                 {
-                <input type="submit" name="addFriend" value="Add friend"/>
+                    <input type="submit" name="addFriend" value="Add friend"/>
                 }
             }
     </div>
@@ -77,5 +78,20 @@ else
     <div id="messagePartial">
         @Html.Partial("_PostMessage")
         </div>
-    }
+
+        <div id="messages">
+        </div>
+
+    <script>
+        $.getJSON('/api/Message/GetMessages', {username:"@Model.Username"}, function(data) {
+            $.each(data, function(key, message) {
+                $('#messages').append('<div class="message" >');
+                $('#messages').append('<p>' + message.SenderUsername + '</p>');
+                $('#messages').append('<br />');
+                $('#messages').append('<p>' + message.Text + '</p>');
+                $('#messages').append('</div>');
+            })
+        });
+    </script>
+}
 

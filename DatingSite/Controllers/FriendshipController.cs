@@ -15,7 +15,7 @@ namespace DatingSite.Controllers
     {
         UserRepository _userRepository;
         FriendshipRepository _friendshipRepository;
-
+                
         public FriendshipController()
         {
             _userRepository = new UserRepository();
@@ -35,7 +35,7 @@ namespace DatingSite.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                    return View("Error", new ErrorModel { Exception = e });
                 }
             }
             return RedirectToAction("Index", "Profile");
@@ -47,9 +47,14 @@ namespace DatingSite.Controllers
             try
             {
                 List<ProfileModel> friendModelList = new List<ProfileModel>();
+                //Hämtar inloggad användares ID
                 var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+                //Hämtar alla vänskaper användaren är en del av.
                 var friendShipList = _friendshipRepository.GetFriendships(_userID);
 
+                //En användare kan vara både mottagare och sändare av en vänskap, och kan därför
+                //förekommer i två olika kolumner.
+                //Här mappas alla användarens vänner om till ProfilModeller.
                 UserAccount friend;
                 foreach (var f in friendShipList)
                 {
@@ -73,14 +78,32 @@ namespace DatingSite.Controllers
             }
         }
 
+        public ActionResult DeleteFriendship(int friendId)
+        {
+            try
+            {
+                var userId = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+                _friendshipRepository.DeleteFriendship(userId, friendId);
+                
+            }
+            catch(Exception e)
+            {
+                return View("Error", new ErrorModel { Exception = e});
+            }
+            return RedirectToAction("Index");
+        }
+
         public IList<ProfileModel> GetRequests()
         {
             try
             {
                 var requesterModelList = new List<ProfileModel>();
+                //Hämtar inloggad användares ID
                 var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+                //Hämtar alla vänskapsförfrågningar användaren fått.
                 var friendRequestList = _friendshipRepository.GetFriendRequests(_userID);
 
+                //Mappar om alla förfrågningars avsändare till ProfileModels
                 UserAccount sender;
                 foreach (var f in friendRequestList)
                 {
@@ -104,6 +127,8 @@ namespace DatingSite.Controllers
         {
             try
             {
+                //Hämtar Idn för avsändare och mottagare via användarnamn och ber repository lägga till dessa i
+                //sambandstabllen FriendRequest.
                 var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
                 var friendID = _userRepository.GetUser(friendUsername).UserAccountID;
                 _friendshipRepository.AddRequest(_userID, friendID);
@@ -111,7 +136,7 @@ namespace DatingSite.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                return View("Error", new ErrorModel { Exception = e });
             }
         }
 
@@ -122,8 +147,10 @@ namespace DatingSite.Controllers
                 var user = Session["User"] as ProfileModel;
 
                 var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+                //Repositoryt tar bort requesten och skapar en friendship.
                 _friendshipRepository.AcceptRequest(senderID, _userID);
 
+                //Uppdaterar antalet obesvarade requests
                 user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID);
                 Session["User"] = user;
 
@@ -131,7 +158,29 @@ namespace DatingSite.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                return View("Error", new ErrorModel { Exception = e });
+            }
+        }
+
+        public ActionResult DeclineRequest(int senderID)
+        {
+            try
+            {
+                var user = Session["User"] as ProfileModel;
+
+                var _userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
+                //Repositoryt tar bort requesten.
+                _friendshipRepository.DeleteRequest(senderID, _userID);
+
+                //Uppdaterar antalet obesvarade requests
+                user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID);
+                Session["User"] = user;
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return View("Error", new ErrorModel { Exception = e });
             }
         }
         #endregion  

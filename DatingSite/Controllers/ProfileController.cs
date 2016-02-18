@@ -59,7 +59,7 @@ namespace DatingSite.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                    return View("Error", new ErrorModel { Exception = e });
                 }
             }
             else
@@ -86,7 +86,7 @@ namespace DatingSite.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("Index", "Error", new ErrorModel { Exception = e});
+                    return View("Error", new ErrorModel { Exception = e });
                 }
             }
             return RedirectToAction("Index", "Profile");
@@ -116,8 +116,9 @@ namespace DatingSite.Controllers
             }
             catch(Exception e)
             {
-                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                return View("Error", new ErrorModel { Exception = e });
             }
+
         }
     }
 }

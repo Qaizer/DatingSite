@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="735e23ae45dd4ea29e6a25e60a56de59" Name="Diagram1" ZoomLevel="93">
+      <Diagram DiagramId="735e23ae45dd4ea29e6a25e60a56de59" Name="Diagram1" ZoomLevel="59">
         <EntityTypeShape EntityType="OnlineDatingDBModel.City" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineDatingDBModel.FriendRequest" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineDatingDBModel.Friendship" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />

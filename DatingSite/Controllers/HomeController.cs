@@ -31,7 +31,7 @@ namespace DatingSite.Controllers
             }
             catch(Exception e)
             {
-                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                return View("Error", new ErrorModel { Exception = e });
             }
             
         }
