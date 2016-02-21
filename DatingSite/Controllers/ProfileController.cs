@@ -28,7 +28,7 @@ namespace DatingSite.Controllers
 
         // GET: Profile
         public ActionResult Index(string username)
-        {
+        {//Hej4
             if (username != null)
             {
                 try {

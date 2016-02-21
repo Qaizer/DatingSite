@@ -10,51 +10,50 @@
     <h2>@Model.Username</h2>
 
     <div id="ProfilePictureIndex">
-        <img src="~/Content/ProfilePictures/@Model.ImagePath" style="width: 200px; height: 250px;" alt="Profile Picture"/>
+        <img src="~/Content/ProfilePictures/@Model.ImagePath" alt ="Profile Picture" class="profileIndexPicture"/>
     </div>
-    <p>Some profile information and other assorted stuff.</p>
+    <p id="profileInformation">Some profile information and other assorted stuff.</p>
     
-    <div class="editprofile">@Html.Partial("_UploadPhoto")</div>
+    <div class="uploadphoto">@Html.Partial("_UploadPhoto")</div>
     <div class="editprofile">@Html.Partial("_EditProfile")</div>
     
-    <div id="messages">
+    <div id="messageBox">
     </div>
+        <script>
+            $.getJSON('/api/Message/GetMessages',{ username:"@User.Identity.Name"}, function (data) {
+                    $.each(data, function (key, message) {
+                        $('#messageBox').append('<div class="message">');
+                        $('#messageBox').append('<p>' + message.SenderUsername + ' wrote:' + '</p>');
+                        $('#messageBox').append('<br />');
+                        $('#messageBox').append('<p>' + message.Text + '</p>');
+                        $('#messageBox').append('</div>');
+                    })
+                });
+        </script>
+    }
 
-    <script>
-    $.getJSON('/api/Message/GetMessages', function(data) {
-        $.each(data, function(key, message) {
-            $('#messages').append('<div class="message">');
-            $('#messages').append('<p>' + message.SenderUsername + '</p>');
-            $('#messages').append('<br />');
-            $('#messages').append('<p>' + message.Text + '</p>');
-            $('#messages').append('</div>');
-        })
-    });
-    </script>
-}
-
-else
-{
+    else
+    {
     <h2>@Model.Username 's Profile</h2>
     <div id="ProfilePictureIndex">
-        <img src="~/Content/ProfilePictures/@Model.ImagePath" style="width: 200px; height: 250px;" alt="Profile Picture"/>
+        <img src="~/Content/ProfilePictures/@Model.ImagePath" alt="Profile Picture" class="profileIndexPicture" />
         @using (Html.BeginForm("SendRequest", "Friendship"))
         {
-            <input type="hidden" name="friendUsername" value="@Model.Username" />
+        <input type="hidden" name="friendUsername" value="@Model.Username" />
 
-                if (Model.PendingFriendRequest)
-                {
-                <input type="submit" name="addFriend" value="Requested" disabled="disabled"/>
-                }
-            else if (Model.IsFriend)
-            {
-                <input type="hidden" name="addFriend" value="Add friend" />
-            }
-                else
-                {
-                <input type="submit" name="addFriend" value="Add friend"/>
-                }
-            }
+        if (Model.PendingFriendRequest)
+        {
+        <input type="submit" name="addFriend" value="Requested" disabled="disabled" />
+        }
+        else if (Model.IsFriend)
+        {
+        <input type="hidden" name="addFriend" value="Add friend" />
+        }
+        else
+        {
+        <input type="submit" name="addFriend" value="Add friend" />
+        }
+        }
     </div>
 
     <div class="profile-info-section">
@@ -76,6 +75,21 @@ else
     </div>
     <div id="messagePartial">
         @Html.Partial("_PostMessage")
-        </div>
+    </div>
+
+<div id="messageBox">
+    <h3>Messages</h3>
+</div>
+<script>
+    $.getJSON('/api/Message/GetMessages', { username:"@Model.Username"}, function (data) {
+                    $.each(data, function (key, message) {
+                        $('#messageBox').append('<div class="message">');
+                        $('#messageBox').append('<p>' + message.SenderUsername + '</p>');
+                        $('#messageBox').append('<br />');
+                        $('#messageBox').append('<p>' + message.Text + '</p>');
+                        $('#messageBox').append('</div>');
+                    })
+                });
+</script>
     }
 

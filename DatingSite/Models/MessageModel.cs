@@ -15,6 +15,6 @@ namespace DatingSite.Models
         [Required(ErrorMessage = "Please enter a message.")]
         public string Text { get; set; }
 
-        public DateTime TimeStamp { get; set; }
+        public string TimeStamp { get; set; }
     }
 }

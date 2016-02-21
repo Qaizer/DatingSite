@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: darkred;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,116 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+.exampleProfileList{
+    position:relative;
+}
+.exampleProfileListItem{
+    margin-left:60px;
+    margin-top:50px;
+    text-align:center;
+    width:150px;
+    position:relative;
+    display:inline-block;
+    border: 2px solid black;
+    overflow: hidden;
+    background: darkred;
+    border-radius:20px;
+}
+
+.profileListPicture{
+    border-top: 2px solid black;
+    width: 150px; 
+    height: 200px; 
+    display: table-column;
+    text-align:center;
+    background: white;
+}
+
+.profileIndexPicture{
+    width:250px;
+    height:250px;
+    border:3px solid black;
+    border-radius:20px;
+}
+
+.profilePicture{
+    width: 150px; 
+    height: 200px;
+    border-top:2px solid black;
+}
+.jumbotron {
+    background: white;
+    margin-top:10px;
+    border:2px solid black;
+}
+
+.profile-link{
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.profile-link:hover{
+    color:dimgray;
+    text-decoration:none;
+}
+
+#profileInformation{
+    color: white;
+}
+
+label{
+    color: white;   
+}
+#messageBox{
+    border: 2px solid black;
+    width: 500px;
+    height: 500px;
+    position:relative;
+    float:right;
+    margin-top: -450px;
+    background:white;
+}
+
+.message{
+    border:2px solid gray;
+    position:relative;
+    margin-top:5px;
+}
+
+.form-group-information{
+    border: 2px solid black;
+    width: 300px;
+    height: 100px;
+}
+.form-group-searchable{
+    border:2px solid black;
+    width:300px;
+    margin-top: 5px;
+}
+
+.sub-btn-information{
+    margin-top: 5px;
+}
+
+.profile-info-section{
+    border:2px solid black;
+    margin-top: 5px;
+    width:400px;
+}
+
+#menu{
+    float:right;
+    position:relative;
+}
+
+#searchField{
+    width:250px;
+    float:right;
+    position:relative;
+    margin-left:50px;
+}
+
+h2{
+    color:white;
 }

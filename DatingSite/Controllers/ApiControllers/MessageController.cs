@@ -19,20 +19,20 @@ namespace DatingSite.Controllers.ApiControllers
             _messageRepository = new MessageRepository();
         }
 
-        [System.Web.Http.HttpGet]
-        public IList<MessageModel> GetMessages()
+        [HttpGet]
+        public IList<MessageModel> GetMessages(string username)
         {
-            var reciever = _userRepository.GetUser(User.Identity.Name);
+            var reciever = _userRepository.GetUser(username);
 
             var messageReferenceList = _messageRepository.GetMessageList(reciever.UserAccountID);
 
             return (from m in messageReferenceList
-                let sender = _userRepository.GetUser(m.Sender)
-                select new MessageModel
-                {
-                    SenderUsername = sender.Username,
-                    Text = m.Text,
-                    TimeStamp = DateTime.Now //TODO: Ändra till m.TimeStamp
+                    let sender = _userRepository.GetUser(m.Sender)
+                    select new MessageModel
+                    {
+                        SenderUsername = sender.Username,
+                        Text = m.Text,
+                        TimeStamp = m.Date.ToString().Substring(0, 10) //TODO: Ändra till m.TimeStamp
                     }).ToList();   
 
         }
