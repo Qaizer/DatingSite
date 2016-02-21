@@ -26,7 +26,7 @@ namespace DatingSite.Controllers
             try
             {
                 var userList = _userRepository.GetRandomUsers(amount);
-                IList<ProfileModel> profileModels = userList.Select(userAccount => userAccount.MapProfileModel()).ToList();
+                IList<ProfileModel> profileModels = userList.Select(userAccount => userAccount.MapToModel()).ToList();
                 return View(profileModels);
             }
             catch(Exception e)

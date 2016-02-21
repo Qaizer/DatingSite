@@ -61,12 +61,12 @@ namespace DatingSite.Controllers
                     if (f.User == _userID)
                     {
                         friend = _userRepository.GetUser(f.Friend);
-                        friendModelList.Add(friend.MapProfileModel());
+                        friendModelList.Add(friend.MapToModel());
                     }
                     else
                     {
                         friend = _userRepository.GetUser(f.User);
-                        friendModelList.Add(friend.MapProfileModel());
+                        friendModelList.Add(friend.MapToModel());
                     }
                 }
                 return friendModelList;
@@ -108,7 +108,7 @@ namespace DatingSite.Controllers
                 foreach (var f in friendRequestList)
                 {
                     sender = _userRepository.GetUser(f.Sender);
-                    requesterModelList.Add(sender.MapProfileModel());
+                    requesterModelList.Add(sender.MapToModel());
                 }
                 return requesterModelList;
 

@@ -10,6 +10,7 @@ using System.Text;
 using DatingSite.Extensions;
 using DatingSite.Models;
 using System.IO;
+using System.Collections;
 
 namespace DatingSite.Controllers
 {
@@ -17,13 +18,11 @@ namespace DatingSite.Controllers
     {
         UserRepository _userRepository;
         FriendshipRepository _friendshipRepository;
-        CityRepository _cityRepository;
 
         public ProfileController()
         {
             _userRepository = new UserRepository();
             _friendshipRepository = new FriendshipRepository();
-            _cityRepository = new CityRepository();
         }
 
         // GET: Profile
@@ -32,28 +31,28 @@ namespace DatingSite.Controllers
             if (username != null)
             {
                 try {
-                    var userAccount = _userRepository.GetUser(username);
-                    var profileModel = userAccount.MapProfileModel();
+                    var profileModel = _userRepository.GetUser(username).MapToModel();
+
+                    //Räknar antal obesvarade friendrequests
                     profileModel.RequestCount = _friendshipRepository.RequestCount(profileModel.UserAccountID);
 
-                    var cities = _cityRepository.GetAll();
-                    profileModel.CityList = cities.Select(x => x.MapCityModel()).ToList();
-
+                    //Sätter friendRequest-knappen beroende på om det finns request, vänskap eller inget alls.
                     if (profileModel.Username != User.Identity.Name)
                     {
                         var userID = _userRepository.GetUser(User.Identity.Name).UserAccountID;
                         var friendID = profileModel.UserAccountID;
 
+                        //Redan requestad
                         if (_friendshipRepository.ExistingRequest(userID, friendID))
                             profileModel.PendingFriendRequest = true;
                         else
                             profileModel.PendingFriendRequest = false;
 
+                        //Redan vänner
                         if (_friendshipRepository.ExistingFriendship(userID, friendID))
                             profileModel.IsFriend = true;
                         else
                             profileModel.IsFriend = false;
-
                     }
                     return View(profileModel);
                 }
@@ -75,12 +74,7 @@ namespace DatingSite.Controllers
             {
                 try
                 {
-                    _userRepository.UpdateUser(
-                            User.Identity.Name,
-                            profileToUpdate.Email,
-                            profileToUpdate.Searchable
-                            //City = profileToUpdate.City om tid finns.
-                            );
+                    _userRepository.UpdateUser(profileToUpdate.MapToEntity());
 
                     return RedirectToAction("Index", "Profile");
                 }

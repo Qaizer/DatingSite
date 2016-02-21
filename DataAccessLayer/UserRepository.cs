@@ -63,7 +63,7 @@ namespace DataAccessLayer
             }
         }
 
-        public void UpdateUser(string username, string newEmail, bool searchable)
+        public void UpdateUser(string username, string newEmail, bool searchable, string city)
         {
             using (var context = new OnlineDatingDBEntities())
             {
@@ -71,6 +71,16 @@ namespace DataAccessLayer
 
                 userToUpdate.Email = newEmail;
                 userToUpdate.Searchable = searchable;
+                context.SaveChanges();
+            }
+        }
+        public void UpdateUser(UserAccount user)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                var userToUpdate = context.UserAccount.First(x => x.UserAccountID == user.UserAccountID);
+                userToUpdate = user;
+
                 context.SaveChanges();
             }
         }

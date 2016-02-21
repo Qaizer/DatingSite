@@ -33,7 +33,7 @@ namespace DatingSite.Controllers
                     FormsAuthentication.SetAuthCookie(username, false);
 
                     //Hämtar ett UserAccount, mappar till UserAccountModel och räknar vänförfrågningar
-                    var user = _userRepository.GetUser(username).MapProfileModel(); 
+                    var user = _userRepository.GetUser(username).MapToModel(); 
                     user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID); 
 
                     Session["User"] = user;
