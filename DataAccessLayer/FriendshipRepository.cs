@@ -142,6 +142,7 @@ namespace DataAccessLayer
         //Tar bort två angedda användarIDn ur Friendship-tabellen
         public void DeleteFriendship(int user, int friend)
         {
+            
             using (var context = new OnlineDatingDBEntities())
             {
                 var friendship = context.Friendship.First
@@ -151,8 +152,9 @@ namespace DataAccessLayer
                     );
                 context.Friendship.Remove(friendship);
                 context.SaveChanges();
-            }
+             }
         }
+     
 
         //Tar bort två angedda användarIDn ur FriendRequest-tabellen
         public void DeleteRequest(int sender, int reciever)

@@ -63,7 +63,7 @@ namespace DataAccessLayer
             }
         }
 
-        public void UpdateUser(string username, string newEmail, bool searchable)
+        public void UpdateUser(string username, string newEmail, bool searchable, string city)
         {
             using (var context = new OnlineDatingDBEntities())
             {
@@ -74,8 +74,19 @@ namespace DataAccessLayer
                 context.SaveChanges();
             }
         }
+        public void UpdateUser(UserAccount user)
+        {
+            using (var context = new OnlineDatingDBEntities())
+            {
+                var userToUpdate = context.UserAccount.First(x => x.UserAccountID == user.UserAccountID);
+                userToUpdate = user;
+
+                context.SaveChanges();
+            }
+        }
         #endregion
 
+        //Sparar en sökväg till lokalt sparade bilder.
         public void SaveImagePath(string username,string imagePath)
         { 
             using (var context = new OnlineDatingDBEntities())
@@ -103,10 +114,12 @@ namespace DataAccessLayer
             }
         }
 
+        //Tar emot en parameter för hur många slumpade användare som efterfrågas och returnerar dessa i en lista.
         public IList<UserAccount> GetRandomUsers(int amount)
         {
             using (var context = new OnlineDatingDBEntities())
             {
+                //Listan sorteras efter ett slumpmässigt Guid och sedan returneras utvalt antal som lista.
                 return context.UserAccount.OrderBy(o => Guid.NewGuid()).Take(amount).ToList();
             }
         }
@@ -115,6 +128,7 @@ namespace DataAccessLayer
         {
             using (var context = new OnlineDatingDBEntities())
             {
+                //Skapar en lista av alla användare som börjar med en söksträng och har sökbar (serchable) satt till true;
                 var searchResultList = context.UserAccount.Where(x => x.Username.StartsWith(searchString) && x.Searchable == true).ToList();
 
                 return searchResultList;

@@ -33,7 +33,7 @@ namespace DatingSite.Controllers
                     FormsAuthentication.SetAuthCookie(username, false);
 
                     //Hämtar ett UserAccount, mappar till UserAccountModel och räknar vänförfrågningar
-                    var user = _userRepository.GetUser(username).MapProfileModel(); 
+                    var user = _userRepository.GetUser(username).MapToModel(); 
                     user.RequestCount = _friendshipRepository.RequestCount(user.UserAccountID); 
 
                     Session["User"] = user;
@@ -44,7 +44,7 @@ namespace DatingSite.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                return View("Error", new ErrorModel { Exception = e });
             }
         }
 
@@ -58,7 +58,7 @@ namespace DatingSite.Controllers
             }
             catch (Exception e)
             {
-                return RedirectToAction("Index", "Error", new ErrorModel { Exception = e });
+                return View("Error", new ErrorModel { Exception = e });
             }
         }
 
@@ -90,7 +90,7 @@ namespace DatingSite.Controllers
                 }
                 catch (Exception e)
                 {
-                    return RedirectToAction("Index", "Error", new ErrorModel { Exception = e});
+                    return View("Error", new ErrorModel { Exception = e });
                 }
             }
             return View(model);
@@ -98,17 +98,24 @@ namespace DatingSite.Controllers
 
         public ActionResult SetLanguage(string languageAbbrevation)
         {
-            if(languageAbbrevation != null)
+            try
             {
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(languageAbbrevation);
-                Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageAbbrevation);
+                if (languageAbbrevation != null)
+                {
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(languageAbbrevation);
+                    Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageAbbrevation);
+                }
+
+                HttpCookie cookie = new HttpCookie("Language");
+                cookie.Value = languageAbbrevation;
+                Response.Cookies.Add(cookie);
+
+                return RedirectToAction("Register");
             }
-
-            HttpCookie cookie = new HttpCookie("Language");
-            cookie.Value = languageAbbrevation;
-            Response.Cookies.Add(cookie);
-
-            return RedirectToAction("Register");
+            catch(Exception e)
+            {
+                return View("Error", new ErrorModel { Exception = e });
+            }
                 
         }
     }

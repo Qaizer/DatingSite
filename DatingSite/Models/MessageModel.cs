@@ -9,6 +9,7 @@ namespace DatingSite.Models
 {
     public class MessageModel
     {
+        public int MessageId { get; set; }
         public string RecieverUsername { get; set; }
         public string SenderUsername { get; set; }
 

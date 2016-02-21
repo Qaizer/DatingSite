@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using DataAccessLayer;
+using System.Web.Mvc;
 
 namespace DatingSite.Models
 {
@@ -22,7 +23,7 @@ namespace DatingSite.Models
         public string NewPassword { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("NewPassword")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
@@ -40,20 +41,13 @@ namespace DatingSite.Models
         public string Occupation { get; set; }
         public string Education { get; set; }
         public string Branch { get; set; }
-
-        public CityModel City { get; set; }
-        public List<CityModel> CityList { get; set; }
-
+        public string City { get; set; }
 
         [Display(Name = "Searchable")]
         public bool Searchable { get; set; }
         public bool PendingFriendRequest { get; set; }
         public bool IsFriend { get; set; }
         public int RequestCount { get; set; }
-
-        #region selection enums
-
-
-        #endregion
+       
     }
 }
