@@ -3,9 +3,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Your Friends</h2>
 
-<ul>
+<ul id="friendList">
     @foreach (var f in Model.Friends)
     {
         <li>@Html.ActionLink(f.Username, "Index", "Profile", new RouteValueDictionary(new { username = f.Username }), null) @Html.ActionLink("Unfriend", "DeleteFriendship", "Friendship", new RouteValueDictionary(new { friendId = f.UserAccountID }), null) </li>

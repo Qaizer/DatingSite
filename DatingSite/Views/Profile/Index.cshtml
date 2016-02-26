@@ -22,11 +22,9 @@
         <script>
             $.getJSON('/api/Message/GetMessages',{ username:"@User.Identity.Name"}, function (data) {
                     $.each(data, function (key, message) {
-                        $('#messageBox').append('<div class="message">');
-                        $('#messageBox').append('<p>' + message.SenderUsername + ' wrote:' + '</p>');
+                        $('#messageBox').append('<p class="messageContent">' + message.SenderUsername + ' wrote:' + '</p>');
+                        $('#messageBox').append('<p class="messageContent">' + message.Text + '</p>');
                         $('#messageBox').append('<br />');
-                        $('#messageBox').append('<p>' + message.Text + '</p>');
-                        $('#messageBox').append('</div>');
                     })
                 });
         </script>
@@ -77,17 +75,14 @@
         @Html.Partial("_PostMessage")
     </div>
 
-<div id="messageBox">
-    <h3>Messages</h3>
+<div id="messageBox">   
 </div>
 <script>
     $.getJSON('/api/Message/GetMessages', { username:"@Model.Username"}, function (data) {
                     $.each(data, function (key, message) {
-                        $('#messageBox').append('<div class="message">');
-                        $('#messageBox').append('<p>' + message.SenderUsername + '</p>');
+                        $('#messageBox').append('<p class="messageContent">' + message.SenderUsername + ' wrote:' + '</p>');
+                        $('#messageBox').append('<p class="messageContent">' + message.Text + '</p>');
                         $('#messageBox').append('<br />');
-                        $('#messageBox').append('<p>' + message.Text + '</p>');
-                        $('#messageBox').append('</div>');
                     })
                 });
 </script>

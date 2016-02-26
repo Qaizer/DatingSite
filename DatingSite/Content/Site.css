@@ -66,16 +66,6 @@ textarea {
     border:2px solid black;
 }
 
-.profile-link{
-    color: white;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
-}
-.profile-link:hover{
-    color:dimgray;
-    text-decoration:none;
-}
-
 #profileInformation{
     color: white;
 }
@@ -91,12 +81,7 @@ label{
     float:right;
     margin-top: -450px;
     background:white;
-}
-
-.message{
-    border:2px solid gray;
-    position:relative;
-    margin-top:5px;
+    overflow:scroll;
 }
 
 .form-group-information{
@@ -134,4 +119,45 @@ label{
 
 h2{
     color:white;
+}
+
+.profile-info-section p{
+    color:white;
+}
+
+.profile-info-section h3{
+    color:white;
+}
+
+.exampleProfileListItem a{
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.exampleProfileListItem a:hover{
+    color:dimgray;
+    text-decoration:none;
+}
+
+#searchresults a{
+    color:white;
+}
+
+#searchresults a:hover{
+    color:dimgray;
+    text-decoration:none;
+}
+
+#searchresults li{
+    list-style:disc;
+    color:white;
+}
+
+#friendList a{
+    color:white;
+}
+
+#friendList a:hover{
+    color:dimgray;
+    text-decoration:none;
 }
